@@ -124,10 +124,11 @@ const POST=[
  {id:'S1',n:'90/90呼吸（双脚踩墙）',d:'2组×5次深呼吸｜呼气像吹蜡烛吹到底→肋骨下沉、腰贴地',v:'https://www.bilibili.com/video/BV1DMHAzcE8p'},
  {id:'S2',n:'压胸小肌+门框拉伸',d:'压胸每侧45秒（掌根压锁骨外下方+肩外旋8次）→门框每侧30–45秒×3组',v:'https://www.bilibili.com/video/BV1T2JEzYELk'},
  {id:'S3',n:'天使·当前第1级地板天使',d:'3组×10次｜每周记一次手背离地几指宽（第5周试半程靠墙）',v:'https://www.bilibili.com/video/BV1TvmoYAEgb'},
- {id:'S4',n:'弹力带肩外旋（自对抗版）',d:'2组×每侧15次｜工作侧肘夹死肋骨，另一只手当“立柱”',v:'https://www.bilibili.com/video/BV1xSQHY6ETT'},
+ {id:'S4',n:'弹力带肩外旋（自对抗版）',d:'2组×每侧15次｜工作侧肘夹死肋骨，另一只手当“立柱”。哑铃替代：侧卧位，肘贴肋骨握最小配片或矿泉水瓶，前臂向上外旋',v:'https://www.bilibili.com/video/BV1xSQHY6ETT',v2:'https://www.bilibili.com/video/BV1Ug411U7E8'},
  {id:'S5',n:'收下巴',d:'3组×10次（每次保持5秒）｜水平后移做“双下巴”，不是低头',v:'https://www.bilibili.com/video/BV1fh411Q7cY'},
  {id:'S6',n:'跪姿髋屈肌拉伸',d:'2组×每侧30秒｜先夹臀收尾骨，再重心前移',v:'https://www.bilibili.com/video/BV19nHszhE4H'},
  {id:'S7',n:'靠墙站姿校准',d:'1分钟｜臀/上背/后脑三点贴墙，腰间一掌',v:''},
+ {id:'S8',n:'YTW 俯卧肩胛训练（可选加做）',opt:1,d:'Y/T/W 各10次=1轮，共2轮｜俯卧、额头垫毛巾：Y=下斜方肌 T=中斜方肌 W=菱形肌+后束',v:'https://www.bilibili.com/video/BV1c18b6cEVY'},
 ];
 /* 升级体系：次数上限（连续2次全部做满+不觉得难 → 建议升级）与升级文案（对应主文档第八节） */
 const UPPER={A1:12,A2:12,A3:15,A4:20,A5:20,A6:10,B1:20,B2:20,B3:12,B4:15,B5:20,B6:0,B7:15};
@@ -251,13 +252,14 @@ function ladderRow(){
 }
 function viewPosture(){
  const t=today();
- const doneN=POST.filter(p=>S.posture.includes(t+'|'+p.id)).length;
+ const req=POST.filter(p=>!p.opt);
+ const doneN=req.filter(p=>S.posture.includes(t+'|'+p.id)).length;
  let h=`<button class="btn" data-act="closeSession" style="text-align:center">← 结束（回到首页）</button>
- <h1>🧘 每日体态矫正</h1><div class="sub">进度 ${doneN}/${POST.length} ｜ 按顺序做，约10–12分钟</div>`;
+ <h1>🧘 每日体态矫正</h1><div class="sub">进度 ${doneN}/${req.length} ｜ S1–S7 按顺序做，约10–12分钟；S8 为可选加做</div>`;
  POST.forEach(p=>{
   const key=t+'|'+p.id, dn=S.posture.includes(key);
   h+=`<div class="card ${dn?'done-ex':''}">
-   <div class="row"><b>${dn?'✅ ':''}${p.id} ${p.n}</b><span style="flex:1"></span>${p.v?`<a class="vbtn" href="${p.v}" target="_blank" rel="noopener">▶ 视频</a>`:''}</div>
+   <div class="row"><b>${dn?'✅ ':''}${p.id} ${p.n}</b>${p.opt?'<span class="chip">可选</span>':''}<span style="flex:1"></span>${p.v?`<a class="vbtn" href="${p.v}" target="_blank" rel="noopener">▶ 视频</a>`:''}${p.v2?`<a class="vbtn" href="${p.v2}" target="_blank" rel="noopener">▶ 哑铃版</a>`:''}</div>
    <div class="sub" style="margin:6px 0">${p.d}</div>
    <button class="setbtn ${dn?'done':''}" style="width:100%" data-act="posture" data-v="${p.id}">${dn?'已完成 ✓':'点击打卡'}</button>
   </div>`;
@@ -441,7 +443,7 @@ function posture(id){
  const i=S.posture.indexOf(key);
  if(i>=0)S.posture.splice(i,1);else{
   S.posture.push(key);
-  if(POST.every(p=>S.posture.includes(today()+'|'+p.id)))toast('🧘 体态课全部完成！今日已打卡');
+  if(POST.filter(p=>!p.opt).every(p=>S.posture.includes(today()+'|'+p.id)))toast('🧘 体态课全部完成！今日已打卡');
  }
  save();render();
 }
