@@ -92,6 +92,7 @@ a{color:var(--acc2)}
     <button class="mb" style="background:var(--bad);color:#20100f" data-act="rpe" data-v="hard">😮‍💨 太难了，好几次做不到标准</button>
     <button class="mb" style="background:var(--acc);color:#0c130d" data-act="rpe" data-v="ok">🙂 刚好，最后2次有点勉强</button>
     <button class="mb" style="background:var(--acc2);color:#08222b" data-act="rpe" data-v="easy">😄 太轻松了，远没到力竭</button>
+    <div class="sub" style="margin-top:8px;cursor:pointer;text-decoration:underline" data-act="rpeLater">稍后再说</div>
   </div>
 </div>
 
@@ -154,7 +155,7 @@ let S;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
 if(!S||!S.logs) S={};
 S.logs=S.logs||[];S.posture=S.posture||[];S.sessions=S.sessions||[];
-S.walk=S.walk||[];S.steps=S.steps||{};S.ladder=S.ladder||{};S.upgDismiss=S.upgDismiss||{};S.metrics=S.metrics||[];
+S.walk=S.walk||[];S.steps=S.steps||{};S.ladder=S.ladder||{};S.upgDismiss=S.upgDismiss||{};S.metrics=S.metrics||[];S.warm=S.warm||{};
 /* 旧编号自动迁移：S0/S4/S2/S3/S1/S5/S6 → S1–S7（只跑一次） */
 if(!S.pm&&S.posture.length){const SMAP={S0:'S1',S4:'S2',S2:'S3',S3:'S4',S1:'S5',S5:'S6',S6:'S7'};S.posture=S.posture.map(k=>{const p=k.split('|');return p[0]+'|'+(SMAP[p[1]]||p[1]);});S.pm=1;save();}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){alert('保存失败：本地存储不可用，请在“数据”页导出备份')}}
@@ -165,7 +166,7 @@ function daysBetween(d1,d2){return Math.round((new Date(d2+'T00:00:00')-new Date
 let tab='home', session=null, openEx=null;
 let rpeFor=null; /* 待反馈的完成类型 */
 function render(){
- S.logs=S.logs||[];S.posture=S.posture||[];S.sessions=S.sessions||[];S.walk=S.walk||[];S.steps=S.steps||{};S.ladder=S.ladder||{};S.upgDismiss=S.upgDismiss||{};S.metrics=S.metrics||[];
+ S.logs=S.logs||[];S.posture=S.posture||[];S.sessions=S.sessions||[];S.walk=S.walk||[];S.steps=S.steps||{};S.ladder=S.ladder||{};S.upgDismiss=S.upgDismiss||{};S.metrics=S.metrics||[];S.warm=S.warm||{};
  const v=document.getElementById('view');
  if(tab==='home') v.innerHTML=session?viewSession():viewHome();
  else if(tab==='stats') v.innerHTML=viewStats();
@@ -173,7 +174,9 @@ function render(){
  window.scrollTo(0,0);
 }
 function viewHome(){
- const t=today(), sug=suggest();
+ const t=today();
+ const ri=restInfo();
+ const sug=ri.rest?'':ri.sug;
  const doneSetsN=S.logs.filter(l=>l.d===t).length;
  const pd=S.posture.filter(x=>x.startsWith(t)).length;
  const walked=S.walk.includes(t);
@@ -197,6 +200,7 @@ function viewHome(){
  const mWarn=metricReminder();
  if(mWarn) h+=`<div class="card warn"><b style="color:var(--warn)">🧪 ${mWarn}</b><div class="sub" style="margin-top:4px">晨起空腹：量腰围 + 正/侧/背各拍一张照（同一面墙）+ 体测秤上称。数据在“统计→记录体测”填写。</div></div>`;
  h+=`<h2>力量训练（隔天交替）</h2>
+ ${ri.rest?`<div class="card ${ri.done?'':'warn'}" style="margin-top:8px"><b style="color:${ri.done?'var(--acc)':'var(--warn)'}">${ri.msg}</b></div>`:''}
  <button class="btn" data-act="start" data-v="A">💪 训练A · 推+蹲日 ${sug==='A'?'<span class="chip on">建议今天</span>':''}<span class="r">6个动作·约40分</span></button>
  <button class="btn" data-act="start" data-v="B">🧲 训练B · 拉+髋日 ${sug==='B'?'<span class="chip on">建议今天</span>':''}<span class="r">6个动作·约40分</span></button>
  <div class="sub" style="margin-top:2px">第1周 A·B·A → 第2周 B·A·B 交替，两次训练至少隔1天。B7 弯举可选，在 B 日列表末尾。</div>
@@ -205,20 +209,31 @@ function viewHome(){
  <div class="row" style="margin-top:6px">
   <button class="chip tap ${walked?'on':''}" style="font-size:15px;padding:10px 14px" data-act="steps">${stepsLabel()}</button>
  </div>
- <div class="card"><div class="sub">⚠️ 现场三条规矩：每组做到“还能标准再做2次”就停 ｜ 肌肉酸胀=正常，关节刺痛=立即停 ｜ 太轻松就放慢节奏+加次数（App 会在你连续达标后主动提醒升级）</div></div>`;
+ <div class="card"><div class="sub">⚠️ 现场三条规矩：每组做到“还能标准再做2次”就停 ｜ 肌肉酸胀=正常；关节刺痛、头晕恶心=立即停 ｜ 太轻松就放慢节奏+加次数（App 会在你连续达标后主动提醒升级）</div></div>`;
  return h;
 }
 function viewSession(){
  const t=session;
  if(t==='S') return viewPosture();
+ const t0=today(), wkKey=t0+'|'+t;
+ const warm=S.warm[wkKey]||[];
+ const warmAll=warm.length>=5;
  const core=WO[t], opt=(t==='B')?['B7']:[];
  let done=0,total=0; core.forEach(x=>{const s=EX[x].sets;total+=s;done+=Math.min(doneSets(x),s)});
  let h=`<button class="btn" data-act="closeSession" style="text-align:center">← 结束训练（回到首页）</button>
  <h1>${t==='A'?'💪 训练A · 推+蹲日':'🧲 训练B · 拉+髋日'}</h1>
- <div class="sub">进度 ${done}/${total} 组 ｜ 按 ${t}1→${t}${t==='A'?6:6} 顺序做 ｜ 勾一组自动开始休息倒计时；点已勾的组可取消，实际次数用下方 ＋/− 修正</div>
- <details><summary>🔥 先热身（点开勾一遍，5–8分钟）</summary>
- ${WARMUP.map(w=>`<label class="ck"><input type="checkbox"><span>${w[0]} · ${w[1]}${w[2]?` · <a href="${w[2]}" target="_blank" rel="noopener">视频</a>`:''}</span></label>`).join('')}
- </details>`;
+ <div class="sub">进度 ${done}/${total} 组 ｜ ${warmAll?'✅ 热身已完成':`🔥 热身 ${warm.length}/5（建议做完再进正式动作）`} ｜ 从上到下按顺序做 ｜ 勾一组自动开始休息倒计时；点已勾的组可取消，实际次数用下方 ＋/− 修正</div>`;
+ /* 热身：排在正式动作前，按顺序做 */
+ h+=`<div class="card">
+  <div class="row"><b>🔥 热身（先做这 5 项）</b><span style="flex:1"></span><span class="chip ${warmAll?'on':''}">${warm.length}/5</span></div>`;
+ warmList(t).forEach((w,i)=>{
+  const dn=warm.includes(i);
+  h+=`<div class="row" style="padding:7px 0;border-bottom:1px solid var(--line)">
+   <button class="setbtn ${dn?'done':''}" style="width:auto;padding:8px 14px;margin:0" data-act="warm" data-v="${i}">${dn?'✓ 完成':'未完成'}</button>
+   <span style="flex:1"><b style="font-size:14px">W${i+1} ${w[0]}</b><br><span class="sub">${w[1]}${w[2]?` · <a href="${w[2]}" target="_blank" rel="noopener">视频</a>`:''}</span></span>
+  </div>`;
+ });
+ h+=`<div class="sub" style="margin-top:6px">⬇️ 热身做完，就按顺序做下面的正式动作</div></div>`;
  core.concat(opt).forEach(x=>{
   const e=EX[x], ds=doneSets(x), full=ds>=e.sets;
   if(openEx===x){
@@ -237,6 +252,22 @@ function viewSession(){
   }
  });
  return h;
+}
+function warmList(t){
+ if(t==='A') return [
+  ['W1 开合跳','1分钟（提升心率）','https://www.bilibili.com/video/BV1kJ411u7jW'],
+  ['W2 肩绕环','前后各10圈（给 A2 肩推、A5 侧平举热身）',''],
+  ['W3 猫牛式','8次（给脊柱预热）','https://www.bilibili.com/video/BV1nA411i766'],
+  ['W4 徒手深蹲','8次 慢下慢起（给 A3 深蹲预热膝盖和髋）',''],
+  ['W5 跪姿俯卧撑','8次（给 A1 俯卧撑预热推的轨迹）',''],
+ ];
+ return [
+  ['W1 开合跳','1分钟（提升心率）','https://www.bilibili.com/video/BV1kJ411u7jW'],
+  ['W2 猫牛式','8次（给脊柱预热，B4 硬拉前必做）','https://www.bilibili.com/video/BV1nA411i766'],
+  ['W3 徒手深蹲','8次（给 B3 箭步蹲预热膝盖）',''],
+  ['W4 徒手髋铰链','8次：推屁股向后、背挺直（给 B4 硬拉热身，全套最重要的一项）',''],
+  ['W5 弹力带扩胸','15次（给肩背预热，B1/B2 热身）',''],
+ ];
 }
 function exName(x){return x==='A1'?`${EX[x].n}（${LADDER[(S.ladder.A1||1)-1]}）`:EX[x].n}
 function repSteppers(x){
@@ -365,6 +396,16 @@ function viewSet(){
 function suggest(){
  const last=[...S.sessions].reverse().find(s=>s.t==='A'||s.t==='B');
  return last?(last.t==='A'?'B':'A'):'A';
+}
+function restInfo(){
+ const t=today();
+ const last=[...S.sessions].reverse().find(s=>s.t==='A'||s.t==='B');
+ if(!last)return {rest:false,sug:suggest()};
+ const diff=daysBetween(last.d,t);
+ const nextName=last.t==='A'?'训练A':'训练B';
+ if(diff===0)return {rest:true,done:true,msg:'今天已练完'+(last.t==='A'?'训练A':'训练B')+' ✅ 明天休息：只做体态矫正 + 吃与走，后天再练'+(last.t==='A'?'训练B':'训练A'),sug:''};
+ if(diff===1)return {rest:true,done:false,msg:'昨天刚练过——今天建议休息：只做体态矫正 + 吃与走，明天再练'+(last.t==='A'?'训练B':'训练A'),sug:''};
+ return {rest:false,sug:suggest()};
 }
 function doneSets(ex){const t=today();return S.logs.filter(l=>l.d===t&&l.ex===ex).length}
 function sessionComplete(type){
@@ -513,10 +554,19 @@ document.addEventListener('click',e=>{
  }
  else if(act==='clearSteps'){const t=today();delete S.steps[t];const i=S.walk.indexOf(t);if(i>=0)S.walk.splice(i,1);save();document.getElementById('stepModal').style.display='none';render();}
  else if(act==='closeStepModal'){document.getElementById('stepModal').style.display='none';}
+ else if(act==='warm'){
+  const k=today()+'|'+session;const arr=S.warm[k]||[];const i=parseInt(v);
+  const pos=arr.indexOf(i);
+  if(pos>=0)arr.splice(pos,1);else arr.push(i);
+  S.warm[k]=arr;
+  if(arr.length>=5)toast('🔥 热身完成！接下来做正式动作');
+  save();render();
+ }
  else if(act==='repAdj'){const[ex,s,dir]=v.split(':');
   const t=today();const l=S.logs.find(x=>x.d===t&&x.ex===ex&&x.s===parseInt(s));
   if(l){l.r=Math.max(1,(l.r||0)+parseInt(dir));save();render();}}
  else if(act==='ladder'){S.ladder.A1=parseInt(v);save();render();}
+ else if(act==='rpeLater'){rpeFor=null;document.getElementById('rpeModal').style.display='none';toast('好的，下次记得反馈');}
  else if(act==='rpe'){
   const t=today();
   const ss=[...S.sessions].reverse().find(s=>s.d===t&&s.t===rpeFor);
@@ -531,12 +581,14 @@ document.addEventListener('click',e=>{
  else if(act==='laterUpg'){S.upgDismiss[v]=today();save();render();toast('好的，3天后再提醒你');}
  else if(act==='saveMetrics'){
   const g=id=>{const x=document.getElementById(id).value;return x===''?undefined:parseFloat(x)};
-  S.metrics.push({d:today(),w:g('mW'),bf:g('mBf'),sm:g('mSm'),waist:g('mWa'),arm:g('mAr'),sh:g('mSh')});
-  save();render();toast('✅ 体测已保存，记得同姿势拍照存相册');
+  const entry={d:today(),w:g('mW'),bf:g('mBf'),sm:g('mSm'),waist:g('mWa'),arm:g('mAr'),sh:g('mSh')};
+  const hasAny=Object.keys(entry).some(k=>k!=='d'&&entry[k]!==undefined);
+  if(!hasAny){toast('请至少填写一项再保存');}
+  else{S.metrics.push(entry);save();render();toast('✅ 体测已保存，记得同姿势拍照存相册');}
  }
  else if(act==='exportData'){exportData();}
  else if(act==='importData'){importData();}
- else if(act==='resetAll'){if(confirm('确定清空全部打卡数据？此操作不可恢复（建议先导出备份）')){S={logs:[],posture:[],sessions:[],walk:[],steps:{},ladder:{},upgDismiss:{},metrics:[]};save();render();toast('已清空');}}
+ else if(act==='resetAll'){if(confirm('确定清空全部打卡数据？此操作不可恢复（建议先导出备份）')){S={logs:[],posture:[],sessions:[],walk:[],steps:{},ladder:{},upgDismiss:{},metrics:[],warm:{}};save();render();toast('已清空');}}
 });
 render();
 </script>
