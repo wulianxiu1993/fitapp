@@ -102,8 +102,8 @@ const EX={
  A1:{n:'上斜俯卧撑',sets:3,reps:8,rest:90,load:'自重',tempo:'下放3秒→停1秒→推起2秒',acid:'该酸：胸外上侧（脖子酸=耸肩）',v:'https://www.bilibili.com/video/BV1cH4y1V7sy'},
  A2:{n:'哑铃肩推',sets:3,reps:8,rest:90,load:'双手各持一片4.5kg',tempo:'推起2秒→最高点停1秒→下放3秒',acid:'该酸：肩膀外上方（腰酸=塌腰）',v:'https://www.bilibili.com/video/BV1Z841187pJ'},
  A3:{n:'高脚杯深蹲',sets:3,reps:10,rest:90,load:'双手共捧两片9kg',tempo:'蹲下3秒→底部停1秒→站起2秒',acid:'该酸：大腿前侧+臀（蹲不深→坐椅子做）',v:'https://www.bilibili.com/video/BV1kZBbBSEQL'},
- A4:{n:'弹力带坐姿划船',sets:3,reps:12,rest:75,load:'弹力带（门锚挂低位）',tempo:'拉回2秒→最紧处停2秒→还原3秒',acid:'该酸：肩胛骨中间（脖子酸=耸肩）',v:'https://www.bilibili.com/video/BV1y14y1X7by'},
- A5:{n:'侧平举',sets:2,reps:12,rest:60,load:'前4周空手→之后每手4.5kg',tempo:'抬2秒→停1秒→放3秒',acid:'该酸：肩膀外上侧（抬到与肩同高）',v:'https://www.bilibili.com/video/BV1n8411j7uE'},
+ A4:{n:'哑铃侧平举',sets:2,reps:12,rest:60,load:'前4周空手→之后每手4.5kg',tempo:'抬2秒→停1秒→放3秒',acid:'该酸：肩膀外上侧（抬到与肩同高）',v:'https://www.bilibili.com/video/BV1n8411j7uE'},
+ A5:{n:'弹力带坐姿划船',sets:3,reps:12,rest:75,load:'弹力带（门锚挂低位）',tempo:'拉回2秒→最紧处停2秒→还原3秒',acid:'该酸：肩胛骨中间（脖子酸=耸肩）',v:'https://www.bilibili.com/video/BV1y14y1X7by'},
  A6:{n:'死虫式（每侧次数）',sets:3,reps:8,rest:45,load:'徒手',tempo:'全程慢：放下3秒→收回2秒',acid:'该紧：腹部深处（腰贴死地面）',v:'https://www.bilibili.com/video/BV12kEQ6gE4c'},
  B1:{n:'弹力带高位下拉',sets:3,reps:12,rest:90,load:'弹力带（门锚挂高位）',tempo:'下拉2秒→底部停1–2秒→还原3秒',acid:'该酸：腋窝后下到腰侧（身体别后仰）',v:'https://www.bilibili.com/video/BV1ZW4y1p7UK'},
  B2:{n:'弹力带扩胸',sets:3,reps:15,rest:60,load:'弹力带',tempo:'拉开2秒→停1秒→回放3秒',acid:'该酸：肩胛骨之间（头别前伸）',v:'https://www.bilibili.com/video/BV1qa411L76a'},
@@ -136,8 +136,8 @@ const UPPER={A1:12,A2:12,A3:15,A4:20,A5:20,A6:10,B1:20,B2:20,B3:12,B4:15,B5:20,B
 const UPGTXT={
  A2:'单手持两片9kg单臂推（另一手扶墙，两片用弹力带捆一圈防滑）',
  A3:'先“底部停3秒”，再进阶“1.5次深蹲”（蹲起半程→再蹲到底算1次）',
- A4:'握带在手上多绕一圈缩短带长，或离门更远',
- A5:'维持4.5kg，节奏改为 抬2秒-停2秒-放4秒',
+ A4:'维持4.5kg，节奏改为 抬2秒-停2秒-放4秒',
+ A5:'握带在手上多绕一圈缩短带长，或离门更远',
  A6:'每手握一瓶矿泉水做',
  B1:'握带多绕一圈缩短带长 + 离门更远',
  B2:'握距变窄（带子更短=阻力更大）',
@@ -156,8 +156,10 @@ try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
 if(!S||!S.logs) S={};
 S.logs=S.logs||[];S.posture=S.posture||[];S.sessions=S.sessions||[];
 S.walk=S.walk||[];S.steps=S.steps||{};S.ladder=S.ladder||{};S.upgDismiss=S.upgDismiss||{};S.metrics=S.metrics||[];S.warm=S.warm||{};
-/* 旧编号自动迁移：S0/S4/S2/S3/S1/S5/S6 → S1–S7（只跑一次） */
-if(!S.pm&&S.posture.length){const SMAP={S0:'S1',S4:'S2',S2:'S3',S3:'S4',S1:'S5',S5:'S6',S6:'S7'};S.posture=S.posture.map(k=>{const p=k.split('|');return p[0]+'|'+(SMAP[p[1]]||p[1]);});S.pm=1;save();}
+/* 旧编号自动迁移（首次加载跑一次并永久标记，之后的新数据不再触碰）：体态 S旧→S1–S7；日志 A4↔A5 对调 */
+if(!S.pm){const SMAP={S0:'S1',S4:'S2',S2:'S3',S3:'S4',S1:'S5',S5:'S6',S6:'S7'};S.posture=S.posture.map(k=>{const p=k.split('|');return p[0]+'|'+(SMAP[p[1]]||p[1]);});S.pm=1;}
+if(!S.exm){S.logs=S.logs.map(l=>{if(l.ex==='A4')l.ex='A9';if(l.ex==='A5')l.ex='A4';if(l.ex==='A9')l.ex='A5';return l;});S.exm=1;}
+save();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){alert('保存失败：本地存储不可用，请在“数据”页导出备份')}}
 function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function daysBetween(d1,d2){return Math.round((new Date(d2+'T00:00:00')-new Date(d1+'T00:00:00'))/86400000)}
@@ -209,6 +211,7 @@ function viewHome(){
  <div class="row" style="margin-top:6px">
   <button class="chip tap ${walked?'on':''}" style="font-size:15px;padding:10px 14px" data-act="steps">${stepsLabel()}</button>
  </div>
+ <div class="card"><div class="sub">📌 训练日推荐顺序：先做体态矫正（不出汗）→ 热身 W1–W5 → 正式动作。体态课里的天使/肩外旋顺便就是肩胛激活，等于上肢热身的一半。</div></div>
  <div class="card"><div class="sub">⚠️ 现场三条规矩：每组做到“还能标准再做2次”就停 ｜ 肌肉酸胀=正常；关节刺痛、头晕恶心=立即停 ｜ 太轻松就放慢节奏+加次数（App 会在你连续达标后主动提醒升级）</div></div>`;
  return h;
 }
@@ -265,7 +268,7 @@ function warmList(t){
   ['W1 开合跳','1分钟（提升心率）','https://www.bilibili.com/video/BV1kJ411u7jW'],
   ['W2 猫牛式','8次（给脊柱预热，B4 硬拉前必做）','https://www.bilibili.com/video/BV1nA411i766'],
   ['W3 徒手深蹲','8次（给 B3 箭步蹲预热膝盖）',''],
-  ['W4 徒手髋铰链','8次：推屁股向后、背挺直（给 B4 硬拉热身，全套最重要的一项）',''],
+  ['W4 徒手髋铰链','8次：推屁股向后、背挺直——就是 B4 硬拉的徒手版（全套最重要的一项热身）',''],
   ['W5 弹力带扩胸','15次（给肩背预热，B1/B2 热身）',''],
  ];
 }
