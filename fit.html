@@ -99,7 +99,7 @@ a{color:var(--acc2)}
 <script>
 /* ============ 动作数据（与主计划文档 v3 一致） ============ */
 const EX={
- A1:{n:'上斜俯卧撑',sets:3,reps:8,rest:90,load:'自重',tempo:'下放3秒→停1秒→推起2秒',acid:'该酸：胸外上侧（脖子酸=耸肩）',v:'https://www.bilibili.com/video/BV1cH4y1V7sy'},
+ A1:{n:'上斜俯卧撑',sets:3,reps:8,rest:90,load:'自重',tempo:'下放3秒→停1秒→推起2秒（顶端肘微屈不锁死）',acid:'该酸：胸外上侧（脖子酸=耸肩）。肘后侧刺痛→退更直立档位',v:'https://www.bilibili.com/video/BV1cH4y1V7sy'},
  A2:{n:'哑铃肩推',sets:3,reps:8,rest:90,load:'双手各持一片4.5kg',tempo:'推起2秒→最高点停1秒→下放3秒',acid:'该酸：肩膀外上方（腰酸=塌腰）',v:'https://www.bilibili.com/video/BV1Z841187pJ'},
  A3:{n:'高脚杯深蹲',sets:3,reps:10,rest:90,load:'双手共捧两片9kg',tempo:'蹲下3秒→底部停1秒→站起2秒',acid:'该酸：大腿前侧+臀（蹲不深→坐椅子做）',v:'https://www.bilibili.com/video/BV1kZBbBSEQL'},
  A4:{n:'哑铃侧平举',sets:2,reps:12,rest:60,load:'前4周空手→之后每手4.5kg',tempo:'抬2秒→停1秒→放3秒',acid:'该酸：肩膀外上侧（抬到与肩同高）',v:'https://www.bilibili.com/video/BV1n8411j7uE'},
@@ -122,14 +122,14 @@ const WARMUP=[
  ['W5 今日第一个动作·空手版','8次',''],
 ];
 const POST=[
- {id:'S1',n:'90/90呼吸（双脚踩墙）',d:'2组×5次深呼吸｜呼气像吹蜡烛吹到底→肋骨下沉、腰贴地',v:'https://www.bilibili.com/video/BV1DMHAzcE8p'},
- {id:'S2',n:'压胸小肌+门框拉伸',d:'压胸每侧45秒（掌根压锁骨外下方+肩外旋8次）→门框每侧30–45秒×3组',v:'https://www.bilibili.com/video/BV1T2JEzYELk'},
- {id:'S3',n:'天使·当前第1级地板天使',d:'3组×10次｜每周记一次手背离地几指宽（第5周试半程靠墙）',v:'https://www.bilibili.com/video/BV1TvmoYAEgb'},
- {id:'S4',n:'弹力带肩外旋（自对抗版）',d:'2组×每侧15次｜工作侧肘夹死肋骨，另一只手当“立柱”。哑铃替代：侧卧位，肘贴肋骨握最小配片或矿泉水瓶，前臂向上外旋',v:'https://www.bilibili.com/video/BV1xSQHY6ETT',v2:'https://www.bilibili.com/video/BV1Ug411U7E8'},
- {id:'S5',n:'收下巴',d:'3组×10次（每次保持5秒）｜水平后移做“双下巴”，不是低头',v:'https://www.bilibili.com/video/BV1fh411Q7cY'},
- {id:'S6',n:'跪姿髋屈肌拉伸',d:'2组×每侧30秒｜先夹臀收尾骨，再重心前移',v:'https://www.bilibili.com/video/BV19nHszhE4H'},
- {id:'S7',n:'靠墙站姿校准',d:'1分钟｜臀/上背/后脑三点贴墙，腰间一掌',v:''},
- {id:'S8',n:'YTW 俯卧肩胛训练（可选加做）',opt:1,d:'Y/T/W 各10次=1轮，共2轮｜俯卧、额头垫毛巾：Y=下斜方肌 T=中斜方肌 W=菱形肌+后束',v:'https://www.bilibili.com/video/BV1c18b6cEVY'},
+ {id:'S1',n:'压胸小肌+门框拉伸（必做+可选加强）',d:'站立·门框处。必做：门框拉伸 每侧30–45秒×3组｜加强可选：掌根压锁骨外下方45秒+肩外旋8次。先拉开胸，后面的天使才做标准',v:'https://www.bilibili.com/video/BV1cHMx6YEs3',v2:'https://www.bilibili.com/video/BV1T2JEzYELk',v2l:'压胸版'},
+ {id:'S2',n:'侧卧哑铃肩外旋',d:'2组×每侧15次｜侧卧，下侧手臂垫头，上侧肘夹死肋骨弯90°，握最小配片（1.25–2.25kg）或500ml矿泉水瓶，前臂向上外旋，顶峰停1秒慢放。不想躺：弹力带自对抗版（备选视频），肘夹死肋骨另一只手当“立柱”',v:'https://www.bilibili.com/video/BV1Ug411U7E8',v2:'https://www.bilibili.com/video/BV1xSQHY6ETT',v2l:'弹力带版'},
+ {id:'S3',n:'靠墙站姿校准',d:'1分钟｜臀/上背/后脑三点贴墙，腰间一掌。小腿肚轻贴墙=正常；腰中间比两边远=正常生理曲度',v:'https://www.bilibili.com/video/BV19FsoeiEGD'},
+ {id:'S4',n:'90/90呼吸（双脚踩墙）',d:'2组×5次深呼吸｜呼气像吹蜡烛吹到底→肋骨下沉、腰贴地',v:'https://www.bilibili.com/video/BV1DMHAzcE8p'},
+ {id:'S5',n:'天使·当前第1级地板天使',d:'3组×10次｜每周记一次手背离地几指宽（第5周试半程靠墙）',v:'https://www.bilibili.com/video/BV1TvmoYAEgb'},
+ {id:'S6',n:'收下巴（躺姿即可）',d:'3组×10次（每次保持5秒）｜水平后移做“双下巴”，不是低头',v:'https://www.bilibili.com/video/BV1fh411Q7cY'},
+ {id:'S7',n:'YTW 俯卧肩胛训练（可选加做）',opt:1,d:'顺势趴下即可：Y/T/W 各10次=1轮，共2轮｜额头垫毛巾、沉肩持续保持',v:'https://www.bilibili.com/video/BV1c18b6cEVY'},
+ {id:'S8',n:'跪姿髋屈肌拉伸',d:'2组×每侧30秒｜从趴姿直接收腿成半跪，衔接顺。先夹臀收尾骨，再重心前移。拉对位置=腹股沟深处酸；大腿前侧正中酸=骨盆没锁住。后膝垫软垫',v:'https://www.bilibili.com/video/BV1mU4y1q7n1',v2:'https://www.bilibili.com/video/BV19nHszhE4H',v2l:'弓步版'},
 ];
 /* 升级体系：次数上限（连续2次全部做满+不觉得难 → 建议升级）与升级文案（对应主文档第八节） */
 const UPPER={A1:12,A2:12,A3:15,A4:20,A5:20,A6:10,B1:20,B2:20,B3:12,B4:15,B5:20,B6:0,B7:15};
@@ -147,7 +147,7 @@ const UPGTXT={
  B6:'能轻松撑满45秒后改“轮流抬脚跟”动态平板',
  B7:'单手持两片9kg（弹力带捆一圈），另一手扶墙',
 };
-const LADDER=['手撑桌面','沙发扶手/矮凳','跪姿俯卧撑','离心俯卧撑（5秒下放+跪姿推起）','标准俯卧撑'];
+const LADDER=['推墙俯卧撑','手撑桌面','沙发扶手/矮凳','跪姿俯卧撑','离心俯卧撑（5秒下放+跪姿推起）','标准俯卧撑'];
 
 /* ============ 状态与存储（手机本地 localStorage） ============ */
 const KEY='fitApp_v2';
@@ -157,7 +157,7 @@ if(!S||!S.logs) S={};
 S.logs=S.logs||[];S.posture=S.posture||[];S.sessions=S.sessions||[];
 S.walk=S.walk||[];S.steps=S.steps||{};S.ladder=S.ladder||{};S.upgDismiss=S.upgDismiss||{};S.metrics=S.metrics||[];S.warm=S.warm||{};
 /* 旧编号自动迁移（首次加载跑一次并永久标记，之后的新数据不再触碰）：体态 S旧→S1–S7；日志 A4↔A5 对调 */
-if(!S.pm){const SMAP={S0:'S1',S4:'S2',S2:'S3',S3:'S4',S1:'S5',S5:'S6',S6:'S7'};S.posture=S.posture.map(k=>{const p=k.split('|');return p[0]+'|'+(SMAP[p[1]]||p[1]);});S.pm=1;}
+if(!S.pm){const SMAP={S1:'S1',S2:'S4',S3:'S5',S4:'S2',S5:'S6',S6:'S8',S7:'S3',S8:'S7'};S.posture=S.posture.map(k=>{const p=k.split('|');return p[0]+'|'+(SMAP[p[1]]||p[1]);});S.pm=1;}
 if(!S.exm){S.logs=S.logs.map(l=>{if(l.ex==='A4')l.ex='A9';if(l.ex==='A5')l.ex='A4';if(l.ex==='A9')l.ex='A5';return l;});S.exm=1;}
 save();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){alert('保存失败：本地存储不可用，请在“数据”页导出备份')}}
@@ -173,7 +173,6 @@ function render(){
  if(tab==='home') v.innerHTML=session?viewSession():viewHome();
  else if(tab==='stats') v.innerHTML=viewStats();
  else v.innerHTML=viewSet();
- window.scrollTo(0,0);
 }
 function viewHome(){
  const t=today();
@@ -201,17 +200,17 @@ function viewHome(){
  /* 复测提醒 */
  const mWarn=metricReminder();
  if(mWarn) h+=`<div class="card warn"><b style="color:var(--warn)">🧪 ${mWarn}</b><div class="sub" style="margin-top:4px">晨起空腹：量腰围 + 正/侧/背各拍一张照（同一面墙）+ 体测秤上称。数据在“统计→记录体测”填写。</div></div>`;
- h+=`<h2>力量训练（隔天交替）</h2>
- ${ri.rest?`<div class="card ${ri.done?'':'warn'}" style="margin-top:8px"><b style="color:${ri.done?'var(--acc)':'var(--warn)'}">${ri.msg}</b></div>`:''}
- <button class="btn" data-act="start" data-v="A">💪 训练A · 推+蹲日 ${sug==='A'?'<span class="chip on">建议今天</span>':''}<span class="r">6个动作·约40分</span></button>
- <button class="btn" data-act="start" data-v="B">🧲 训练B · 拉+髋日 ${sug==='B'?'<span class="chip on">建议今天</span>':''}<span class="r">6个动作·约40分</span></button>
- <div class="sub" style="margin-top:2px">第1周 A·B·A → 第2周 B·A·B 交替，两次训练至少隔1天。B7 弯举可选，在 B 日列表末尾。</div>
- <h2>每天必做</h2>
- <button class="btn" data-act="start" data-v="S">🧘 每日体态矫正 ${pd>=7?'<span class="chip on">今日已完成</span>':`<span class="r">${pd}/7 项</span>`}</button>
+ h+=`<h2>🧘 每天必做（先做这两件）</h2>
+ <button class="btn" data-act="start" data-v="S">每日体态矫正 ${pd>=7?'<span class="chip on">今日已完成</span>':`<span class="r">${pd}/7 项</span>`}</button>
  <div class="row" style="margin-top:6px">
   <button class="chip tap ${walked?'on':''}" style="font-size:15px;padding:10px 14px" data-act="steps">${stepsLabel()}</button>
  </div>
- <div class="card"><div class="sub">📌 训练日推荐顺序：先做体态矫正（不出汗）→ 热身 W1–W5 → 正式动作。体态课里的天使/肩外旋顺便就是肩胛激活，等于上肢热身的一半。</div></div>
+ <h2>💪 力量训练（隔天交替）</h2>
+ ${ri.rest?`<div class="card ${ri.done?'':'warn'}" style="margin-top:8px"><b style="color:${ri.done?'var(--acc)':'var(--warn)'}">${ri.msg}</b></div>`:''}
+ <button class="btn" data-act="start" data-v="A">训练A · 推+蹲日 ${sug==='A'?'<span class="chip on">建议今天</span>':''}<span class="r">6个动作·约40分</span></button>
+ <button class="btn" data-act="start" data-v="B">训练B · 拉+髋日 ${sug==='B'?'<span class="chip on">建议今天</span>':''}<span class="r">6个动作·约40分</span></button>
+ <div class="sub" style="margin-top:2px">第1周 A·B·A → 第2周 B·A·B 交替，两次训练至少隔1天。B7 弯举可选，在 B 日列表末尾。</div>
+ <div class="card"><div class="sub">📌 训练日顺序：体态矫正（不出汗）→ 热身 3 项 → 正式动作。体态课的天使/外旋顺便就是肩胛激活，热身因此精简为 3 项。</div></div>
  <div class="card"><div class="sub">⚠️ 现场三条规矩：每组做到“还能标准再做2次”就停 ｜ 肌肉酸胀=正常；关节刺痛、头晕恶心=立即停 ｜ 太轻松就放慢节奏+加次数（App 会在你连续达标后主动提醒升级）</div></div>`;
  return h;
 }
@@ -225,15 +224,15 @@ function viewSession(){
  let done=0,total=0; core.forEach(x=>{const s=EX[x].sets;total+=s;done+=Math.min(doneSets(x),s)});
  let h=`<button class="btn" data-act="closeSession" style="text-align:center">← 结束训练（回到首页）</button>
  <h1>${t==='A'?'💪 训练A · 推+蹲日':'🧲 训练B · 拉+髋日'}</h1>
- <div class="sub">进度 ${done}/${total} 组 ｜ ${warmAll?'✅ 热身已完成':`🔥 热身 ${warm.length}/5（建议做完再进正式动作）`} ｜ 从上到下按顺序做 ｜ 勾一组自动开始休息倒计时；点已勾的组可取消，实际次数用下方 ＋/− 修正</div>`;
+ <div class="sub">进度 ${done}/${total} 组 ｜ ${warmAll?'✅ 热身已完成':`🔥 热身 ${warm.length}/3（建议做完再进正式动作）`} ｜ 从上到下按顺序做 ｜ 勾一组自动开始休息倒计时；点已勾的组可取消，实际次数用下方 ＋/− 修正</div>`;
  /* 热身：排在正式动作前，按顺序做 */
  h+=`<div class="card">
-  <div class="row"><b>🔥 热身（先做这 5 项）</b><span style="flex:1"></span><span class="chip ${warmAll?'on':''}">${warm.length}/5</span></div>`;
+  <div class="row"><b>🔥 热身（先做这 3 项）</b><span style="flex:1"></span><span class="chip ${warmAll?'on':''}">${warm.length}/3</span></div>`;
  warmList(t).forEach((w,i)=>{
   const dn=warm.includes(i);
   h+=`<div class="row" style="padding:7px 0;border-bottom:1px solid var(--line)">
    <button class="setbtn ${dn?'done':''}" style="width:auto;padding:8px 14px;margin:0" data-act="warm" data-v="${i}">${dn?'✓ 完成':'未完成'}</button>
-   <span style="flex:1"><b style="font-size:14px">W${i+1} ${w[0]}</b><br><span class="sub">${w[1]}${w[2]?` · <a href="${w[2]}" target="_blank" rel="noopener">视频</a>`:''}</span></span>
+   <span style="flex:1"><b style="font-size:14px">W${i+1} ${w[0].replace(/^W\d\s*/,'')}</b><br><span class="sub">${w[1]}${w[2]?` · <a href="${w[2]}" target="_blank" rel="noopener">视频</a>`:''}</span></span>
   </div>`;
  });
  h+=`<div class="sub" style="margin-top:6px">⬇️ 热身做完，就按顺序做下面的正式动作</div></div>`;
@@ -258,18 +257,14 @@ function viewSession(){
 }
 function warmList(t){
  if(t==='A') return [
-  ['W1 开合跳','1分钟（提升心率）','https://www.bilibili.com/video/BV1kJ411u7jW'],
-  ['W2 肩绕环','前后各10圈（给 A2 肩推、A5 侧平举热身）',''],
-  ['W3 猫牛式','8次（给脊柱预热）','https://www.bilibili.com/video/BV1nA411i766'],
-  ['W4 徒手深蹲','8次 慢下慢起（给 A3 深蹲预热膝盖和髋）',''],
-  ['W5 跪姿俯卧撑','8次（给 A1 俯卧撑预热推的轨迹）',''],
+  ['W1 开合跳','1分钟（提升心率，不可省）','https://www.bilibili.com/video/BV1kJ411u7jW'],
+  ['W2 徒手深蹲','8次 慢下慢起（给 A3 深蹲预热膝盖和髋）',''],
+  ['W3 跪姿俯卧撑','8次（给 A1 预热推的轨迹）',''],
  ];
  return [
-  ['W1 开合跳','1分钟（提升心率）','https://www.bilibili.com/video/BV1kJ411u7jW'],
-  ['W2 猫牛式','8次（给脊柱预热，B4 硬拉前必做）','https://www.bilibili.com/video/BV1nA411i766'],
-  ['W3 徒手深蹲','8次（给 B3 箭步蹲预热膝盖）',''],
-  ['W4 徒手髋铰链','8次：推屁股向后、背挺直——就是 B4 硬拉的徒手版（全套最重要的一项热身）',''],
-  ['W5 弹力带扩胸','15次（给肩背预热，B1/B2 热身）',''],
+  ['W1 开合跳','1分钟（提升心率，不可省）','https://www.bilibili.com/video/BV1kJ411u7jW'],
+  ['W2 徒手深蹲','8次（给 B3 箭步蹲预热膝盖）',''],
+  ['W3 徒手髋铰链','8次：推屁股向后、背挺直——就是 B4 硬拉的徒手版（全套最重要的一项热身）',''],
  ];
 }
 function exName(x){return x==='A1'?`${EX[x].n}（${LADDER[(S.ladder.A1||1)-1]}）`:EX[x].n}
@@ -281,7 +276,7 @@ function repSteppers(x){
 }
 function ladderRow(){
  const cur=S.ladder.A1||1;
- return `<div style="margin-top:8px"><div class="sub">A1 当前档位（毕业标准：当前档 3组×12次）：${cur<5?`下一档=${cur+1}.${LADDER[cur]}`:'已到最高档 🎉'}</div>
+ return `<div style="margin-top:8px"><div class="sub">A1 当前档位（毕业标准：当前档 3组×12次）：${cur<LADDER.length?`下一档=${cur+1}.${LADDER[cur]}`:'已到最高档 🎉'}</div>
  <div class="ladder">${LADDER.map((n,i)=>`<span class="chip tap ${cur===i+1?'on':''}" data-act="ladder" data-v="${i+1}">${i+1}.${n}</span>`).join('')}</div></div>`;
 }
 function viewPosture(){
@@ -289,11 +284,11 @@ function viewPosture(){
  const req=POST.filter(p=>!p.opt);
  const doneN=req.filter(p=>S.posture.includes(t+'|'+p.id)).length;
  let h=`<button class="btn" data-act="closeSession" style="text-align:center">← 结束（回到首页）</button>
- <h1>🧘 每日体态矫正</h1><div class="sub">进度 ${doneN}/${req.length} ｜ S1–S7 按顺序做，约10–12分钟；S8 为可选加做</div>`;
+ <h1>🧘 每日体态矫正</h1><div class="sub">进度 ${doneN}/${req.length} ｜ S1–S8 按体位排：先站立三项 → 一次性到垫上做完仰卧/俯卧/半跪，全程不反复起身；S7 YTW 为可选加做</div>`;
  POST.forEach(p=>{
   const key=t+'|'+p.id, dn=S.posture.includes(key);
   h+=`<div class="card ${dn?'done-ex':''}">
-   <div class="row"><b>${dn?'✅ ':''}${p.id} ${p.n}</b>${p.opt?'<span class="chip">可选</span>':''}<span style="flex:1"></span>${p.v?`<a class="vbtn" href="${p.v}" target="_blank" rel="noopener">▶ 视频</a>`:''}${p.v2?`<a class="vbtn" href="${p.v2}" target="_blank" rel="noopener">▶ 哑铃版</a>`:''}</div>
+   <div class="row"><b>${dn?'✅ ':''}${p.id} ${p.n}</b>${p.opt?'<span class="chip">可选</span>':''}<span style="flex:1"></span>${p.v?`<a class="vbtn" href="${p.v}" target="_blank" rel="noopener">▶ ${p.vl||'视频'}</a>`:''}${p.v2?`<a class="vbtn" href="${p.v2}" target="_blank" rel="noopener">▶ ${p.v2l||'备选'}</a>`:''}</div>
    <div class="sub" style="margin:6px 0">${p.d}</div>
    <button class="setbtn ${dn?'done':''}" style="width:100%" data-act="posture" data-v="${p.id}">${dn?'已完成 ✓':'点击打卡'}</button>
   </div>`;
@@ -537,11 +532,11 @@ document.addEventListener('click',e=>{
  const el=e.target.closest('[data-act]');
  if(!el)return;
  const act=el.dataset.act, v=el.dataset.v;
- if(act==='tab'){tab=v;session=null;render();
+ if(act==='tab'){tab=v;session=null;render();window.scrollTo(0,0);
   document.querySelectorAll('.tabbar button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
  }
- else if(act==='start'){session=v;openEx=null;render();}
- else if(act==='closeSession'){session=null;render();}
+ else if(act==='start'){session=v;openEx=null;render();window.scrollTo(0,0);}
+ else if(act==='closeSession'){session=null;render();window.scrollTo(0,0);}
  else if(act==='openEx'){openEx=(openEx===v?null:v);render();}
  else if(act==='toggleSet'){const[a,b]=v.split(':');toggleSet(a,parseInt(b));}
  else if(act==='posture'){posture(v);}
