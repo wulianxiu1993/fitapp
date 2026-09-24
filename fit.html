@@ -316,14 +316,27 @@ function viewStats(){
   ${m.arm!==undefined?`臂围 <b>${m.arm}cm</b>（参考 32–35）`:''}</div>`;
  }else goal=`<div class="sub" style="margin-top:6px">还没有体测记录——在“数据”页记录第一次，就能在这里看目标进度（体脂 12–17%、腰围 72–78cm、臂围 32–35cm）。</div>`;
  /* 本周诊断 */
- const pDays=new Set(S.posture.filter(x=>x.startsWith(weekStart())).map(x=>x.slice(0,10))).size;
- const wDays=S.walk.filter(d=>d>=weekStart()).length;
- const gap=3-week; 
+ const ws=weekStart();
+ const pDays=new Set(S.posture.filter(x=>x>=ws).map(x=>x.split('|')[0])).size;
+ const wDays=S.walk.filter(d=>d>=ws).length;
+ const now=new Date(); const dowNum=(now.getDay()+6)%7+1;
+ const daysElapsed=dowNum;
+ const daysLeft=7-dowNum;
  const diag=[];
- if(gap>0)diag.push(`本周力量还差 ${gap} 次（目标每周≥3次）`);else diag.push('✅ 本周力量次数达标');
- if(pDays<Math.min(7,new Date().getDay()||7))diag.push(`本周体态只做了 ${pDays} 天——它扛着28%的视觉改善，尽量天天做`);
- else diag.push('✅ 本周体态做得好');
- if(wDays<3)diag.push(`本周“吃与走”达标 ${wDays} 天——减脂的大头在这里`);
+ const gap=Math.max(0,3-week);
+ // 力量诊断（按一周进度给公平判断）
+ if(week>=3){diag.push(`✅ 本周力量 ${week} 次，达标！`);}
+ else if(gap<=daysLeft){diag.push(`本周已练 ${week} 次，还剩 ${daysLeft} 天可以安排（目标 3 次）——节奏正常`);}
+ else{diag.push(`本周已练 ${week} 次，按剩余 ${daysLeft} 天来看较难达 3 次——但练了比没练强，下次补上即可`);}
+ // 体态诊断
+ if(pDays===0&&daysElapsed<=2)diag.push('本周体态还没开始——今天做一个就算开门红');
+ else if(pDays===0)diag.push(`本周体态还没打卡（今天是周${'一二三四五六日'[dowNum-1]}）——做一个就算开始`);
+ else if(pDays<daysElapsed)diag.push(`本周体态已做 ${pDays} 天（已过 ${daysElapsed} 天）——尽量天天做，断了不用自责，今天补上就行`);
+ else diag.push(`✅ 本周体态 ${pDays} 天，做得好`);
+ // 吃与走诊断
+ if(wDays<daysElapsed&&wDays<3)diag.push(`本周“吃与走”达标 ${wDays} 天（目标 ≥3）——减脂的大头在这里`);
+ else if(wDays>=3)diag.push(`✅ 本周“吃与走”达标 ${wDays} 天`);
+ // 步数
  const stp=S.steps[t];
  if(stp===undefined)diag.push('今天还没填步数（目标 8000 步，点首页“吃与走”填写）');
  else if(stp<8000)diag.push('今天走了 '+stp+' 步，还差 '+(8000-stp)+' 步');
