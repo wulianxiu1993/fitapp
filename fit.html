@@ -92,6 +92,7 @@ a{color:var(--acc2)}
     <button class="mb" style="background:var(--bad);color:#20100f" data-act="rpe" data-v="hard">😮‍💨 太难了，好几次做不到标准</button>
     <button class="mb" style="background:var(--acc);color:#0c130d" data-act="rpe" data-v="ok">🙂 刚好，最后2次有点勉强</button>
     <button class="mb" style="background:var(--acc2);color:#08222b" data-act="rpe" data-v="easy">😄 太轻松了，远没到力竭</button>
+    <input type="text" id="rpeNote" placeholder="补充备注（可选）" style="margin-top:8px;font-size:13px;min-height:36px">
     <div class="sub" style="margin-top:8px;cursor:pointer;text-decoration:underline" data-act="rpeLater">稍后再说</div>
   </div>
 </div>
@@ -155,7 +156,7 @@ let S;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
 if(!S||!S.logs) S={};
 S.logs=S.logs||[];S.posture=S.posture||[];S.sessions=S.sessions||[];
-S.walk=S.walk||[];S.steps=S.steps||{};S.ladder=S.ladder||{};S.upgDismiss=S.upgDismiss||{};S.metrics=S.metrics||[];S.warm=S.warm||{};S.sound=S.sound!==false;
+S.walk=S.walk||[];S.steps=S.steps||{};S.ladder=S.ladder||{};S.upgDismiss=S.upgDismiss||{};S.metrics=S.metrics||[];S.warm=S.warm||{};S.sound=S.sound!==false;S.feel=S.feel||{};S.note=S.note||{};
 /* 旧编号自动迁移（首次加载跑一次并永久标记，之后的新数据不再触碰）：体态 S旧→S1–S7；日志 A4↔A5 对调 */
 if(!S.pm){const SMAP={S1:'S1',S2:'S4',S3:'S5',S4:'S2',S5:'S6',S6:'S8',S7:'S3',S8:'S7'};S.posture=S.posture.map(k=>{const p=k.split('|');return p[0]+'|'+(SMAP[p[1]]||p[1]);});S.pm=1;}
 if(!S.exm){S.logs=S.logs.map(l=>{if(l.ex==='A4')l.ex='A9';if(l.ex==='A5')l.ex='A4';if(l.ex==='A9')l.ex='A5';return l;});S.exm=1;}
@@ -168,7 +169,7 @@ function daysBetween(d1,d2){return Math.round((new Date(d2+'T00:00:00')-new Date
 let tab='home', session=null, openEx=null;
 let rpeFor=null; /* 待反馈的完成类型 */
 function render(){
- S.logs=S.logs||[];S.posture=S.posture||[];S.sessions=S.sessions||[];S.walk=S.walk||[];S.steps=S.steps||{};S.ladder=S.ladder||{};S.upgDismiss=S.upgDismiss||{};S.metrics=S.metrics||[];S.warm=S.warm||{};S.sound=S.sound!==false;
+ S.logs=S.logs||[];S.posture=S.posture||[];S.sessions=S.sessions||[];S.walk=S.walk||[];S.steps=S.steps||{};S.ladder=S.ladder||{};S.upgDismiss=S.upgDismiss||{};S.metrics=S.metrics||[];S.warm=S.warm||{};S.sound=S.sound!==false;S.feel=S.feel||{};S.note=S.note||{};
  const v=document.getElementById('view');
  if(tab==='home') v.innerHTML=session?viewSession():viewHome();
  else if(tab==='stats') v.innerHTML=viewStats();
@@ -246,6 +247,7 @@ function viewSession(){
     <div class="sub" style="margin:6px 0">${e.acid}</div>
     <div>${Array.from({length:e.sets},(_,i)=>`<button class="setbtn ${ds>i?'done':''}" data-act="toggleSet" data-v="${x}:${i}">第${i+1}组${ds>i?' ✓':''}</button>`).join('')}</div>
     ${ds>0&&e.reps>0?repSteppers(x):''}
+    ${ds>0?feelRow(today(),x):''}
     ${x==='A1'?ladderRow():''}
     ${full&&UPGTXT[x]?`<div class="sub" style="color:var(--acc2)">⬆️ 次数全满后的下一步：${UPGTXT[x]}</div>`:''}
    </div>`;
@@ -273,6 +275,14 @@ function repSteppers(x){
  const ls=S.logs.filter(l=>l.d===t&&l.ex===x).sort((a,b)=>a.s-b.s);
  const max=(UPPER[x]||EX[x].reps)+4;
  return `<div style="margin:8px 0 2px"><div class="sub">本次实际次数（按 [+][−] 修正，升级判定看这里）：</div>${ls.map(l=>`<span class="step">组${l.s+1}<button data-act="repAdj" data-v="${x}:${l.s}:-1">−</button><span>${l.r}</span><button data-act="repAdj" data-v="${x}:${l.s}:1">＋</button></span>`).join('')}<span class="sub">（上限 ${UPPER[x]||'—'}）</span></div>`;
+}
+function feelRow(dt,ex){
+ const key=dt+'|'+ex;
+ const f=S.feel[key]||{};
+ const mk=(field,val)=>`<span class="chip tap ${f[field]===val?'on':''}" style="font-size:12px;padding:5px 8px;margin:2px 4px 2px 0" data-act="feel" data-v="${key}|${field}|${val}">${val}</span>`;
+ return `<div style="margin:8px 0 2px"><span class="sub">发力感：</span>${mk('f','✅ 准确')}${mk('f','⚠️ 偏移')}${mk('f','❓ 找不到')}</div>
+ <div style="margin:4px 0 2px"><span class="sub">累度：</span>${mk('t','😅 轻松')}${mk('t','😊 适中')}${mk('t','😓 吃力')}</div>
+ <input type="text" placeholder="备注（如：左肩有点紧）" style="font-size:13px;min-height:36px;margin:4px 0" data-act="exNote" data-v="${key}" value="${f.n||''}">`;
 }
 function ladderRow(){
  const cur=S.ladder.A1||1;
@@ -346,16 +356,35 @@ function viewStats(){
  const trained=new Set(S.logs.filter(l=>l.d>=twoWeeksAgo).map(l=>l.ex));
  const missed=['A1','A2','A3','A4','A5','A6','B1','B2','B3','B4','B5','B6'].filter(x=>!trained.has(x));
  if(missed.length)diag.push(`最近两周没碰过的动作：${missed.map(x=>EX[x].n).join('、')}——下次训练补上`);
- let heat='';
- const base=new Date(); base.setHours(0,0,0,0);
- for(let i=69;i>=0;i--){
-  const d=new Date(base); d.setDate(d.getDate()-i);
-  const ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-  const has=st.some(l=>l.d===ds);
-  const full=S.sessions.some(s=>s.d===ds);
-  heat+=`<i class="${full?'f':(has?'l':'')}"></i>`;
+ /* 训练日志：最近20天的清晰列表 */
+ const logDays = new Set();
+ S.sessions.forEach(s=>logDays.add(s.d));
+ S.posture.forEach(p=>logDays.add(p.split('|')[0]));
+ S.walk.forEach(w=>logDays.add(w));
+ S.logs.forEach(l=>logDays.add(l.d));
+ const sortedDays = [...logDays].sort((a,b)=>b.localeCompare(a)).slice(0,20);
+ const dowCh = ['日','一','二','三','四','五','六'];
+ let logList = '';
+ for(const ds of sortedDays){
+  const dt = new Date(ds+'T00:00:00');
+  const dow = '周'+dowCh[dt.getDay()];
+  const sess = S.sessions.filter(s=>s.d===ds);
+  const posN = S.posture.filter(p=>p.startsWith(ds+'|')).length;
+  const steps = S.steps[ds];
+  const items = [];
+  sess.forEach(s=>items.push(s.t==='A'?'💪 训练A 推+蹲':'🧲 训练B 拉+髋'));
+  if(posN>0)items.push('🧘 体态 '+posN+' 项');
+  if(steps!==undefined)items.push('🚶 '+steps+' 步');
+  const rpe = sess.length&&sess[0].rpe ? sess[0].rpe : '';
+  const rpeStr = rpe==='hard'?'😮‍💨 太难':rpe==='easy'?'😄 轻松':rpe==='ok'?'🙂 刚好':'';
+  if(items.length===0)continue;
+  logList+=`<div class="card" style="padding:10px 14px">
+   <b style="font-size:14px">${ds} ${dow}</b>
+   <div class="sub" style="margin-top:4px">${items.join(' ｜ ')}</div>
+   ${rpeStr?`<div class="sub" style="margin-top:2px;color:var(--acc2)">${rpeStr}</div>`:''}
+  </div>`;
  }
- let hist=[...S.sessions].sort((a,b)=>b.d.localeCompare(a.d)).slice(0,12).map(s=>`<div class="row" style="padding:4px 0"><span>${s.d}</span><span style="flex:1"></span><b>${s.t==='A'?'训练A 推+蹲':s.t==='B'?'训练B 拉+髋':'体态'}</b>${s.rpe==='hard'?'<span class="chip">太难</span>':s.rpe==='easy'?'<span class="chip">轻松</span>':s.rpe==='ok'?'<span class="chip">刚好</span>':''}</div>`).join('');
+ if(!logList)logList='<div class="card"><div class="sub">还没有记录——去"今日"开始第一次训练吧</div></div>';
  return `<h1>📊 我的统计</h1>
  <div class="row" style="margin-top:10px">
   <div class="stat"><div class="big">${days.size}</div><div class="sub">累计锻炼天数</div></div>
@@ -369,27 +398,43 @@ function viewStats(){
  <div class="card">${goal}</div>
  <h2>🩺 本周诊断</h2>
  <div class="card">${diag.map(d=>`<div class="sub" style="padding:3px 0">• ${d}</div>`).join('')}</div>
- <h2>打卡日历（最近10周）</h2>
- <div class="heat">${heat}</div>
- <div class="sub" style="margin-top:6px">绿=完成整次训练｜浅绿=练了一部分｜灰=休息</div>
+ <h2>📋 训练日志（最近记录）</h2>
+ ${logList}
  <h2>🧘 体态打卡</h2>
- <div class="card"><div class="big">${pwDays} 天</div><div class="sub">累计体态矫正天数｜今日步数 ${S.steps[t]!==undefined?S.steps[t]+' 步':'未填'}</div></div>
- <h2>最近完成的训练</h2>
- <div class="card">${hist||'<div class="sub">还没有完成的训练——去“今日”开始第一次吧</div>'}</div>`;
+ <div class=”card”><div class=”big”>${pwDays} 天</div><div class=”sub”>累计体态矫正天数｜今日步数 ${S.steps[t]!==undefined?S.steps[t]+' 步':'未填'}</div></div>`;
 }
 function viewSet(){
  const m=[...S.metrics].sort((a,b)=>b.d.localeCompare(a.d));
- const mList=m.slice(0,6).map(x=>`<div class="sub" style="padding:3px 0">${x.d}｜${x.w!==undefined&&x.w!==''?'体重'+x.w+'kg ':''}${x.bf!==undefined&&x.bf!==''?'体脂'+x.bf+'% ':''}${x.sm!==undefined&&x.sm!==''?'骨骼肌'+x.sm+'kg ':''}${x.waist!==undefined&&x.waist!==''?'腰围'+x.waist+'cm ':''}${x.arm!==undefined&&x.arm!==''?'臂围'+x.arm+'cm ':''}${x.sh!==undefined&&x.sh!==''?'肩围'+x.sh+'cm':''}</div>`).join('');
+ const fmt=x=>x===undefined||x===''?'—':x;
+ const histRows=[...m].reverse().map(x=>`<tr>${['d','w','bf','sm','waist','arm','sh'].map(k=>`<td style="padding:4px 6px;text-align:center">${k==='d'?x.d.slice(5):fmt(x[k])}</td>`).join('')}</tr>`).join('');
+ let cmp='';
+ if(m.length>=2){
+  const first=m[m.length-1], latest=m[0];
+  const d=(k)=>{const a=first[k],b=latest[k];if(a===undefined||b===undefined)return null;const dd=b-a;return (dd>=0?'+':'−')+Math.abs(dd).toFixed(1);};
+  const cmpItem=(label,k)=>{const v=d(k);return v===null?'':`<span class="chip ${k==='bf'||k==='waist'?'':k==='sm'||k==='arm'?'on':''}" style="font-size:12px;padding:4px 8px;margin:2px 4px 2px 0">${label} ${v}</span>`;};
+  cmp=`<div class="card"><b>📊 对比首次</b><div class="sub" style="margin:4px 0">首次（${first.d}）→ 最新（${latest.d}）</div>
+   <div class="row" style="flex-wrap:wrap;margin-top:6px">
+    ${cmpItem('体脂率','bf')}${cmpItem('腰围','waist')}${cmpItem('骨骼肌','sm')}${cmpItem('臂围','arm')}${cmpItem('肩围','sh')}${cmpItem('体重','w')}
+   </div>
+   <div class="sub" style="margin-top:6px">方向参考：体脂↓ 腰围↓ = 减脂见效；骨骼肌↑ 臂围↑ = 增肌见效</div></div>`;
+ } else {
+  cmp=`<div class="card"><div class="sub">📈 记录满 2 次后，这里自动生成"首次 → 最新"的对比。</div></div>`;
+ }
+ const histTable=`<div class="card" style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px" class="sub">
+  <tr>${['日期','体重kg','体脂%','骨骼肌kg','腰围cm','臂围cm','肩围cm'].map(h=>`<th style="padding:4px 6px;text-align:center;border-bottom:1px solid var(--line)">${h}</th>`).join('')}</tr>
+  ${histRows||'<tr><td colspan="7" style="padding:6px">暂无记录</td></tr>'}
+ </table></div>`;
  return `<h1>⚙️ 数据与说明</h1>
- <div class="card"><div class="sub">📌 数据只存在你这台手机上（本地存储）。建议每周在下面点一次“导出备份”，把文字存进微信收藏。</div></div>
+ <div class="card"><div class="sub">📌 所有打卡和体测记录都永久留存在这台手机上（每次保存=新增一条，永不覆盖）。建议每周点一次"导出备份"存进微信收藏，防丢。</div></div>
  <button class="btn blue" data-act="exportData">📤 导出备份（复制全部数据）</button>
- <textarea id="expBox" placeholder="点“导出备份”后这里出现数据文字 → 全选复制 → 发到微信收藏。恢复时粘贴到这里，点“导入恢复”。"></textarea>
+ <textarea id="expBox" placeholder="点"导出备份"后这里出现数据文字 → 全选复制 → 发到微信收藏。恢复时粘贴到这里，点"导入恢复"。"></textarea>
  <button class="btn blue" data-act="importData">📥 导入恢复（粘贴备份文字后点我）</button>
  <button class="chip tap ${S.sound!==false?'on':''}" style="font-size:14px;padding:10px 14px" data-act="toggleSound">🔔 休息结束铃声：${S.sound!==false?'开':'关'}</button>
  <button class="btn" data-act="resetAll" style="color:var(--bad);text-align:center">🗑️ 清空全部数据</button>
  <h2>🧪 记录体测（建议每4周一次）</h2>
+ ${cmp}
  <div class="card">
-  <div class="sub">晨起空腹、排便后。留空的项可以不填。日期自动记今天（${today()}）。</div>
+  <div class="sub">晨起空腹、排便后。留空的项可以不填。日期自动记今天（${today()}）。每次保存都会新增一条历史，可随时对比。</div>
   <input type="number" id="mW" inputmode="decimal" placeholder="体重 kg（如 68.5）">
   <input type="number" id="mBf" inputmode="decimal" placeholder="体脂率 %（如 19.5）">
   <input type="number" id="mSm" inputmode="decimal" placeholder="骨骼肌量 kg（如 26.3）">
@@ -397,14 +442,12 @@ function viewSet(){
   <input type="number" id="mAr" inputmode="decimal" placeholder="屈臂臂围 cm（用力弯起量最粗处）">
   <input type="number" id="mSh" inputmode="decimal" placeholder="肩围 cm（绕肩最外一圈）">
   <button class="btn main" data-act="saveMetrics" style="margin:10px 0 0">保存本次体测</button>
-  ${mList?`<div style="margin-top:10px"><div class="sub">历史记录：</div>${mList}</div>`:''}
  </div>
+ ${histTable}
  <h2>怎么把它变成手机上的App</h2>
- <div class="card"><div class="sub">1. 把这个 HTML 文件发到 iPhone（微信文件传输助手/AirDrop）<br>2. 用 Safari 打开它<br>3. 点分享按钮 ⬆️ → “添加到主屏幕”<br>4. 桌面出现图标，点开就是全屏App，数据本地保存</div></div>
- <div class="card"><div class="sub">🔁 升级规则（App 会自动判断）：某个动作连续 2 次训练「全部组数完成 + 每组做到次数上限 + 当次感觉不是“太难”」→ 首页弹出升级建议。先只试 1 组，轻松再全量换。俯卧撑走 5 级升级梯（在 A1 详情里切换档位）。</div></div>`;
+ <div class="card"><div class="sub">1. 把这个 HTML 文件发到 iPhone（微信文件传输助手/AirDrop）<br>2. 用 Safari 打开它<br>3. 点分享按钮 ⬆️ → "添加到主屏幕"<br>4. 桌面出现图标，点开就是全屏App，数据本地保存</div></div>
+ <div class="card"><div class="sub">🔁 升级规则（App 会自动判断）：某个动作连续 2 次训练「全部组数完成 + 每组做到次数上限 + 当次感觉不是"太难"」→ 首页弹出升级建议。先只试 1 组，轻松再全量换。俯卧撑走 6 级升级梯（在 A1 详情里切换档位）。</div></div>`;
 }
-
-/* ============ 升级引擎与诊断 ============ */
 function suggest(){
  const last=[...S.sessions].reverse().find(s=>s.t==='A'||s.t==='B');
  return last?(last.t==='A'?'B':'A'):'A';
@@ -583,7 +626,10 @@ document.addEventListener('click',e=>{
  else if(act==='rpe'){
   const t=today();
   const ss=[...S.sessions].reverse().find(s=>s.d===t&&s.t===rpeFor);
-  if(ss)ss.rpe=v;
+  if(ss){ss.rpe=v;
+   const rn=document.getElementById('rpeNote');
+   if(rn&&rn.value.trim())ss.n=rn.value.trim();
+  }
   save();rpeFor=null;document.getElementById('rpeModal').style.display='none';render();
  }
  else if(act==='tryUpg'){
@@ -601,6 +647,18 @@ document.addEventListener('click',e=>{
  }
  else if(act==='exportData'){exportData();}
  else if(act==='importData'){importData();}
+ else if(act==='feel'){
+  const parts=v.split('|');
+  const key=parts[0]+'|'+parts[1];
+  const field=parts[2], val=parts.slice(3).join('|');
+  if(!S.feel[key])S.feel[key]={};
+  if(S.feel[key][field]===val)delete S.feel[key][field];else S.feel[key][field]=val;
+  save();render();
+ }
+ else if(act==='exNote'){
+  const key=v;const input=document.querySelector('[data-act-Note="'+key+'"]');
+  if(input){if(!S.feel[key])S.feel[key]={};S.feel[key].n=input.value;save();}
+ }
  else if(act==='toggleSound'){S.sound=!(S.sound!==false);save();render();}
  else if(act==='resetAll'){if(confirm('确定清空全部打卡数据？此操作不可恢复（建议先导出备份）')){S={logs:[],posture:[],sessions:[],walk:[],steps:{},ladder:{},upgDismiss:{},metrics:[],warm:{}};save();render();toast('已清空');}}
 });
