@@ -99,19 +99,19 @@ a{color:var(--acc2)}
 <script>
 /* ============ 动作数据（与主计划文档 v3 一致） ============ */
 const EX={
- A1:{n:'上斜俯卧撑',sets:3,reps:8,rest:90,load:'自重',tempo:'下放3秒→停1秒→推起2秒（顶端肘微屈不锁死）',acid:'该酸：胸外上侧（脖子酸=耸肩）。肘后侧刺痛→退更直立档位',v:'https://www.bilibili.com/video/BV1cH4y1V7sy'},
- A2:{n:'哑铃肩推',sets:3,reps:8,rest:90,load:'双手各持一片4.5kg',tempo:'推起2秒→最高点停1秒→下放3秒',acid:'该酸：肩膀外上方（腰酸=塌腰）',v:'https://www.bilibili.com/video/BV1Z841187pJ'},
- A3:{n:'高脚杯深蹲',sets:3,reps:10,rest:90,load:'双手共捧两片9kg',tempo:'蹲下3秒→底部停1秒→站起2秒',acid:'该酸：大腿前侧+臀（蹲不深→坐椅子做）',v:'https://www.bilibili.com/video/BV1kZBbBSEQL'},
- A4:{n:'哑铃侧平举',sets:2,reps:12,rest:60,load:'前4周空手→之后每手4.5kg',tempo:'抬2秒→停1秒→放3秒',acid:'该酸：肩膀外上侧（抬到与肩同高）',v:'https://www.bilibili.com/video/BV1n8411j7uE'},
- A5:{n:'弹力带坐姿划船',sets:3,reps:12,rest:75,load:'弹力带（门锚挂低位）',tempo:'拉回2秒→最紧处停2秒→还原3秒',acid:'该酸：肩胛骨中间（脖子酸=耸肩）',v:'https://www.bilibili.com/video/BV1y14y1X7by'},
- A6:{n:'死虫式（每侧次数）',sets:3,reps:8,rest:45,load:'徒手',tempo:'全程慢：放下3秒→收回2秒',acid:'该紧：腹部深处（腰贴死地面）',v:'https://www.bilibili.com/video/BV12kEQ6gE4c'},
- B1:{n:'弹力带高位下拉',sets:3,reps:12,rest:90,load:'弹力带（门锚挂高位）',tempo:'下拉2秒→底部停1–2秒→还原3秒',acid:'该酸：腋窝后下到腰侧（身体别后仰）',v:'https://www.bilibili.com/video/BV1ZW4y1p7UK'},
- B2:{n:'弹力带扩胸',sets:3,reps:15,rest:60,load:'弹力带',tempo:'拉开2秒→停1秒→回放3秒',acid:'该酸：肩胛骨之间（头别前伸）',v:'https://www.bilibili.com/video/BV1qa411L76a'},
- B3:{n:'后箭步蹲',sets:3,reps:8,rest:90,load:'前2周徒手→之后每手一片4.5kg',tempo:'后退下蹲2秒→底部停1秒→站起2秒',acid:'该酸：前腿臀+大腿（晃就扶椅背）',v:'https://www.bilibili.com/video/BV1iV89zME8a'},
- B4:{n:'罗马尼亚硬拉',sets:3,reps:10,rest:90,load:'双手各持一片4.5kg',tempo:'俯身3秒→拉起2秒',acid:'该酸：臀+大腿后侧（推屁股向后）',v:'https://www.bilibili.com/video/BV1q3411v7cB'},
- B5:{n:'负重臀桥',sets:3,reps:15,rest:75,load:'两片叠放髋上（垫衣服）',tempo:'顶起2秒→夹臀停2秒→下放3秒',acid:'该酸：屁股（腰酸=顶太高）',v:'https://www.bilibili.com/video/BV1yoVmzdEGB'},
- B6:{n:'平板支撑',sets:3,reps:0,rest:45,load:'自重 20–45秒',tempo:'卷尾骨拉平腰背，挤屁股',acid:'该抖：整个腹部（腰一塌立刻停）',v:'https://www.bilibili.com/video/BV1Q34y1j79r'},
- B7:{n:'哑铃弯举（可选）',sets:2,reps:10,rest:60,load:'双手各持4.5kg',tempo:'弯起2秒→挤1秒→放3秒',acid:'该酸：大臂前侧',v:'https://www.bilibili.com/video/BV1bRDgYCEgm'},
+ A1:{n:'上斜俯卧撑',sets:3,reps:8,rest:90,load:'自重',tempo:'下放3秒→停1秒→推起2秒（顶端肘微屈不锁死）',acid:'该酸：胸外上侧（脖子酸=耸肩）。肘后侧刺痛→退更直立档位',br:'下落用鼻吸气，推起时呼气；全程不憋气',v:'https://www.bilibili.com/video/BV1cH4y1V7sy'},
+ A2:{n:'哑铃肩推',sets:3,reps:8,rest:90,load:'双手各持一片4.5kg',tempo:'推起2秒→最高点停1秒→下放3秒',acid:'该酸：肩膀外上方（腰酸=塌腰）',br:'推起呼气，下放吸气',v:'https://www.bilibili.com/video/BV1Z841187pJ'},
+ A3:{n:'高脚杯深蹲',sets:3,reps:10,rest:90,load:'双手共捧两片9kg',tempo:'蹲下3秒→底部停1秒→站起2秒',acid:'该酸：大腿前侧+臀（蹲不深→坐椅子做）',br:'下蹲吸气，站起呼气',v:'https://www.bilibili.com/video/BV1kZBbBSEQL'},
+ A4:{n:'哑铃侧平举',sets:2,reps:12,rest:60,load:'前4周空手→之后每手4.5kg',tempo:'抬2秒→停1秒→放3秒',acid:'该酸：肩膀外上侧（抬到与肩同高）',br:'抬起呼气，下放吸气',v:'https://www.bilibili.com/video/BV1n8411j7uE'},
+ A5:{n:'弹力带坐姿划船',sets:3,reps:12,rest:75,load:'弹力带（门锚挂低位）',tempo:'拉回2秒→最紧处停2秒→还原3秒',acid:'该酸：肩胛骨中间（脖子酸=耸肩）',br:'拉回呼气，还原吸气',v:'https://www.bilibili.com/video/BV1y14y1X7by'},
+ A6:{n:'死虫式（每侧次数）',sets:3,reps:8,rest:45,load:'徒手',tempo:'全程慢：放下3秒→收回2秒',acid:'该紧：腹部深处（腰贴死地面）',br:'手脚伸出时呼气，收回吸气',v:'https://www.bilibili.com/video/BV12kEQ6gE4c'},
+ B1:{n:'弹力带高位下拉',sets:3,reps:12,rest:90,load:'弹力带（门锚挂高位）',tempo:'下拉2秒→底部停1–2秒→还原3秒',acid:'该酸：腋窝后下到腰侧（身体别后仰）',br:'下拉呼气，还原吸气',v:'https://www.bilibili.com/video/BV1ZW4y1p7UK'},
+ B2:{n:'弹力带扩胸（直臂水平拉开）',sets:3,reps:15,rest:60,load:'弹力带',tempo:'拉开2秒→停1秒→回放3秒',acid:'该酸：肩胛骨之间（头别前伸）。动作：双手直臂握带与肩同宽、置于体前，水平向两侧拉开到与肩同宽',br:'拉开呼气，回放吸气',v:'https://www.bilibili.com/video/BV1qa411L76a'},
+ B3:{n:'后箭步蹲',sets:3,reps:8,rest:90,load:'前2周徒手→之后每手一片4.5kg',tempo:'后退下蹲2秒→底部停1秒→站起2秒',acid:'该酸：前腿臀+大腿（晃就扶椅背）',br:'下蹲吸气，站起呼气',v:'https://www.bilibili.com/video/BV1iV89zME8a'},
+ B4:{n:'罗马尼亚硬拉',sets:3,reps:10,rest:90,load:'双手各持一片4.5kg',tempo:'俯身3秒→拉起2秒',acid:'该酸：臀+大腿后侧（推屁股向后）。膝微屈10–15°并全程保持——不锁死、不额外下蹲',br:'俯身吸气，拉起呼气',v:'https://www.bilibili.com/video/BV1q3411v7cB'},
+ B5:{n:'负重臀桥',sets:3,reps:15,rest:75,load:'两片全放上=9kg，叠放髋上（垫衣服防滑）',tempo:'顶起2秒→夹臀停2秒→下放3秒',acid:'该酸：屁股（腰酸=顶太高）',br:'顶起呼气，下放吸气',v:'https://www.bilibili.com/video/BV1yoVmzdEGB'},
+ B6:{n:'平板支撑',sets:3,reps:0,rest:45,load:'自重 20–45秒',tempo:'卷尾骨拉平腰背，挤屁股',acid:'该抖：整个腹部（腰一塌立刻停）',br:'全程自然呼吸，千万别憋气',v:'https://www.bilibili.com/video/BV1Q34y1j79r'},
+ B7:{n:'哑铃弯举（可选）',sets:2,reps:10,rest:60,load:'双手各持4.5kg',tempo:'弯起2秒→挤1秒→放3秒',acid:'该酸：大臂前侧',br:'弯起呼气，下放吸气',v:'https://www.bilibili.com/video/BV1bRDgYCEgm'},
 };
 const WO={A:['A1','A2','A3','A4','A5','A6'],B:['B1','B2','B3','B4','B5','B6']};
 const WARMUP=[
@@ -155,7 +155,7 @@ let S;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
 if(!S||!S.logs) S={};
 S.logs=S.logs||[];S.posture=S.posture||[];S.sessions=S.sessions||[];
-S.walk=S.walk||[];S.steps=S.steps||{};S.ladder=S.ladder||{};S.upgDismiss=S.upgDismiss||{};S.metrics=S.metrics||[];S.warm=S.warm||{};
+S.walk=S.walk||[];S.steps=S.steps||{};S.ladder=S.ladder||{};S.upgDismiss=S.upgDismiss||{};S.metrics=S.metrics||[];S.warm=S.warm||{};S.sound=S.sound!==false;
 /* 旧编号自动迁移（首次加载跑一次并永久标记，之后的新数据不再触碰）：体态 S旧→S1–S7；日志 A4↔A5 对调 */
 if(!S.pm){const SMAP={S1:'S1',S2:'S4',S3:'S5',S4:'S2',S5:'S6',S6:'S8',S7:'S3',S8:'S7'};S.posture=S.posture.map(k=>{const p=k.split('|');return p[0]+'|'+(SMAP[p[1]]||p[1]);});S.pm=1;}
 if(!S.exm){S.logs=S.logs.map(l=>{if(l.ex==='A4')l.ex='A9';if(l.ex==='A5')l.ex='A4';if(l.ex==='A9')l.ex='A5';return l;});S.exm=1;}
@@ -168,7 +168,7 @@ function daysBetween(d1,d2){return Math.round((new Date(d2+'T00:00:00')-new Date
 let tab='home', session=null, openEx=null;
 let rpeFor=null; /* 待反馈的完成类型 */
 function render(){
- S.logs=S.logs||[];S.posture=S.posture||[];S.sessions=S.sessions||[];S.walk=S.walk||[];S.steps=S.steps||{};S.ladder=S.ladder||{};S.upgDismiss=S.upgDismiss||{};S.metrics=S.metrics||[];S.warm=S.warm||{};
+ S.logs=S.logs||[];S.posture=S.posture||[];S.sessions=S.sessions||[];S.walk=S.walk||[];S.steps=S.steps||{};S.ladder=S.ladder||{};S.upgDismiss=S.upgDismiss||{};S.metrics=S.metrics||[];S.warm=S.warm||{};S.sound=S.sound!==false;
  const v=document.getElementById('view');
  if(tab==='home') v.innerHTML=session?viewSession():viewHome();
  else if(tab==='stats') v.innerHTML=viewStats();
@@ -240,9 +240,9 @@ function viewSession(){
   const e=EX[x], ds=doneSets(x), full=ds>=e.sets;
   if(openEx===x){
    h+=`<div class="card ${full?'done-ex':''}">
-    <div class="row"><b style="font-size:17px">${x} ${exName(x)}</b>${full?'<span style="color:var(--acc)">✅</span>':''}<span style="flex:1"></span><a class="vbtn" href="${e.v}" target="_blank" rel="noopener">▶ 视频</a></div>
+    <div class="row"><b style="font-size:17px">${x} ${exName(x)}</b>${full?'<span style="color:var(--acc)">✅</span>':''}<span style="flex:1"></span><a class="vbtn" href="${e.v}" target="_blank" rel="noopener">▶ 视频</a><span class="chip tap" style="margin-left:6px" data-act="openEx" data-v="${x}">收起</span></div>
     <div style="margin:6px 0">${e.sets} 组 × ${e.reps?e.reps+'次起':(x==='B6'?'20–45秒':'')} ｜ 组间休息 ${e.rest}秒</div>
-    <div><span class="chip">负重：${e.load}</span><span class="chip">节奏：${e.tempo}</span></div>
+    <div><span class="chip">负重：${e.load}</span><span class="chip">节奏：${e.tempo}</span><span class="chip">呼吸：${e.br}</span></div>
     <div class="sub" style="margin:6px 0">${e.acid}</div>
     <div>${Array.from({length:e.sets},(_,i)=>`<button class="setbtn ${ds>i?'done':''}" data-act="toggleSet" data-v="${x}:${i}">第${i+1}组${ds>i?' ✓':''}</button>`).join('')}</div>
     ${ds>0&&e.reps>0?repSteppers(x):''}
@@ -372,6 +372,7 @@ function viewSet(){
  <button class="btn blue" data-act="exportData">📤 导出备份（复制全部数据）</button>
  <textarea id="expBox" placeholder="点“导出备份”后这里出现数据文字 → 全选复制 → 发到微信收藏。恢复时粘贴到这里，点“导入恢复”。"></textarea>
  <button class="btn blue" data-act="importData">📥 导入恢复（粘贴备份文字后点我）</button>
+ <button class="chip tap ${S.sound!==false?'on':''}" style="font-size:14px;padding:10px 14px" data-act="toggleSound">🔔 休息结束铃声：${S.sound!==false?'开':'关'}</button>
  <button class="btn" data-act="resetAll" style="color:var(--bad);text-align:center">🗑️ 清空全部数据</button>
  <h2>🧪 记录体测（建议每4周一次）</h2>
  <div class="card">
@@ -501,6 +502,7 @@ function tick(){
 }
 function hideTimer(){clearInterval(iv);document.getElementById('timerBar').style.display='none'}
 function beep3(){
+ if(S.sound===false)return;
  try{const ctx=new (window.AudioContext||window.webkitAudioContext)();
  [0,250,500].forEach(off=>{
   const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);
@@ -582,10 +584,11 @@ document.addEventListener('click',e=>{
   const entry={d:today(),w:g('mW'),bf:g('mBf'),sm:g('mSm'),waist:g('mWa'),arm:g('mAr'),sh:g('mSh')};
   const hasAny=Object.keys(entry).some(k=>k!=='d'&&entry[k]!==undefined);
   if(!hasAny){toast('请至少填写一项再保存');}
-  else{S.metrics.push(entry);save();render();toast('✅ 体测已保存，记得同姿势拍照存相册');}
+  else{S.metrics.push(entry);save();['mW','mBf','mSm','mWa','mAr','mSh'].forEach(id=>document.getElementById(id).value='');render();toast('✅ 体测已保存，记得同姿势拍照存相册');}
  }
  else if(act==='exportData'){exportData();}
  else if(act==='importData'){importData();}
+ else if(act==='toggleSound'){S.sound=!(S.sound!==false);save();render();}
  else if(act==='resetAll'){if(confirm('确定清空全部打卡数据？此操作不可恢复（建议先导出备份）')){S={logs:[],posture:[],sessions:[],walk:[],steps:{},ladder:{},upgDismiss:{},metrics:[],warm:{}};save();render();toast('已清空');}}
 });
 render();
