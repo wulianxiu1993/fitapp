@@ -115,22 +115,15 @@ const EX={
  B7:{n:'哑铃弯举（可选）',sets:2,reps:10,rest:60,load:'双手各持4.5kg',tempo:'弯起2秒→挤1秒→放3秒',acid:'该酸：大臂前侧',br:'弯起呼气，下放吸气',v:'https://www.bilibili.com/video/BV1bRDgYCEgm'},
 };
 const WO={A:['A1','A2','A3','A4','A5','A6'],B:['B1','B2','B3','B4','B5','B6']};
-const WARMUP=[
- ['W1 开合跳','1分钟','https://www.bilibili.com/video/BV1kJ411u7jW'],
- ['W2 肩绕环','前后各10圈',''],
- ['W3 猫牛式','8次','https://www.bilibili.com/video/BV1nA411i766'],
- ['W4 弹力带扩胸','15次',''],
- ['W5 今日第一个动作·空手版','8次',''],
-];
 const POST=[
- {id:'S1',n:'压胸小肌+门框拉伸（必做+可选加强）',d:'站立·门框处。必做：门框拉伸 每侧30–45秒×3组｜加强可选：掌根压锁骨外下方45秒+肩外旋8次。先拉开胸，后面的天使才做标准',v:'https://www.bilibili.com/video/BV1cHMx6YEs3',v2:'https://www.bilibili.com/video/BV1T2JEzYELk',v2l:'压胸版'},
- {id:'S2',n:'侧卧哑铃肩外旋',d:'2组×每侧15次｜侧卧，下侧手臂垫头，上侧肘夹死肋骨弯90°，握最小配片（1.25–2.25kg）或500ml矿泉水瓶，前臂向上外旋，顶峰停1秒慢放。不想躺：弹力带自对抗版（备选视频），肘夹死肋骨另一只手当“立柱”',v:'https://www.bilibili.com/video/BV1Ug411U7E8',v2:'https://www.bilibili.com/video/BV1xSQHY6ETT',v2l:'弹力带版'},
- {id:'S3',n:'靠墙站姿校准',d:'1分钟｜臀/上背/后脑三点贴墙，腰间一掌。小腿肚轻贴墙=正常；腰中间比两边远=正常生理曲度',v:'https://www.bilibili.com/video/BV19FsoeiEGD'},
- {id:'S4',n:'90/90呼吸（双脚踩墙）',d:'2组×5次深呼吸｜呼气像吹蜡烛吹到底→肋骨下沉、腰贴地',v:'https://www.bilibili.com/video/BV1DMHAzcE8p'},
- {id:'S5',n:'天使·当前第1级地板天使',d:'3组×10次｜每周记一次手背离地几指宽（第5周试半程靠墙）',v:'https://www.bilibili.com/video/BV1TvmoYAEgb'},
- {id:'S6',n:'收下巴（躺姿即可）',d:'3组×10次（每次保持5秒）｜水平后移做“双下巴”，不是低头',v:'https://www.bilibili.com/video/BV1fh411Q7cY'},
- {id:'S7',n:'YTW 俯卧肩胛训练（可选加做）',opt:1,d:'顺势趴下即可：Y/T/W 各10次=1轮，共2轮｜额头垫毛巾、沉肩持续保持',v:'https://www.bilibili.com/video/BV1c18b6cEVY'},
- {id:'S8',n:'跪姿髋屈肌拉伸',d:'2组×每侧30秒｜从趴姿直接收腿成半跪，衔接顺。先夹臀收尾骨，再重心前移。拉对位置=腹股沟深处酸；大腿前侧正中酸=骨盆没锁住。后膝垫软垫',v:'https://www.bilibili.com/video/BV1mU4y1q7n1',v2:'https://www.bilibili.com/video/BV19nHszhE4H',v2l:'弓步版'},
+ {id:'S1',n:'压胸小肌+门框拉伸（必做+可选加强）',br:'拉伸保持中深呼吸，每次呼气让胸口再松一点',d:'站立·门框处。必做：门框拉伸 每侧30–45秒×3组｜加强可选：掌根压锁骨外下方45秒+肩外旋8次。先拉开胸，后面的天使才做标准',v:'https://www.bilibili.com/video/BV1cHMx6YEs3',v2:'https://www.bilibili.com/video/BV1T2JEzYELk',v2l:'压胸版'},
+ {id:'S2',n:'靠墙站姿校准',br:'自然呼吸不憋气，感受三点贴墙',d:'1分钟｜臀/上背/后脑三点贴墙，腰间一掌。小腿肚轻贴墙=正常；腰中间比两边远=正常生理曲度',v:'https://www.bilibili.com/video/BV19FsoeiEGD'},
+ {id:'S3',n:'侧卧哑铃肩外旋',br:'外旋抬起时呼气，慢放还原时吸气',d:'2组×每侧15次｜拿上小配片（1.25–2.25kg 或 500ml矿泉水瓶）下到垫上：侧卧，下侧手臂垫头，上侧肘夹死肋骨弯90°，前臂向上外旋，顶峰停1秒慢放。不想躺：弹力带自对抗版（备选视频），肘夹死肋骨另一只手当“立柱”',v:'https://www.bilibili.com/video/BV1Ug411U7E8',v2:'https://www.bilibili.com/video/BV1xSQHY6ETT',v2l:'弹力带版'},
+ {id:'S4',n:'90/90呼吸（双脚踩墙）',br:'鼻吸口呼，呼气比吸气长，像吹蜡烛吹到底',d:'2组×5次深呼吸｜呼气像吹蜡烛吹到底→肋骨下沉、腰贴地',v:'https://www.bilibili.com/video/BV1DMHAzcE8p'},
+ {id:'S5',n:'天使·当前第1级地板天使',br:'手臂上滑时吸气，下放时呼气',d:'3组×10次｜每周记一次手背离地几指宽（第5周试半程靠墙）',v:'https://www.bilibili.com/video/BV1TvmoYAEgb'},
+ {id:'S6',n:'收下巴（躺姿即可）',br:'保持5秒期间正常呼吸，不要憋气',d:'3组×10次（每次保持5秒）｜水平后移做“双下巴”，不是低头',v:'https://www.bilibili.com/video/BV1fh411Q7cY'},
+ {id:'S7',n:'YTW 俯卧肩胛训练（可选加做）',opt:1,br:'抬臂时呼气，下放时吸气',d:'顺势趴下即可：Y/T/W 各10次=1轮，共2轮｜额头垫毛巾、沉肩持续保持',v:'https://www.bilibili.com/video/BV1c18b6cEVY'},
+ {id:'S8',n:'跪姿髋屈肌拉伸',br:'每次呼气让重心再前移一点',d:'2组×每侧30秒｜从趴姿直接收腿成半跪，衔接顺。先夹臀收尾骨，再重心前移。拉对位置=腹股沟深处酸；大腿前侧正中酸=骨盆没锁住。后膝垫软垫',v:'https://www.bilibili.com/video/BV1mU4y1q7n1',v2:'https://www.bilibili.com/video/BV19nHszhE4H',v2l:'弓步版'},
 ];
 /* 升级体系：次数上限（连续2次全部做满+不觉得难 → 建议升级）与升级文案（对应主文档第八节） */
 const UPPER={A1:12,A2:12,A3:15,A4:20,A5:20,A6:10,B1:20,B2:20,B3:12,B4:15,B5:20,B6:0,B7:15};
@@ -158,7 +151,7 @@ if(!S||!S.logs) S={};
 S.logs=S.logs||[];S.posture=S.posture||[];S.sessions=S.sessions||[];
 S.walk=S.walk||[];S.steps=S.steps||{};S.ladder=S.ladder||{};S.upgDismiss=S.upgDismiss||{};S.metrics=S.metrics||[];S.warm=S.warm||{};S.sound=S.sound!==false;S.feel=S.feel||{};S.note=S.note||{};
 /* 旧编号自动迁移（首次加载跑一次并永久标记，之后的新数据不再触碰）：体态 S旧→S1–S7；日志 A4↔A5 对调 */
-if(!S.pm){const SMAP={S1:'S1',S2:'S4',S3:'S5',S4:'S2',S5:'S6',S6:'S8',S7:'S3',S8:'S7'};S.posture=S.posture.map(k=>{const p=k.split('|');return p[0]+'|'+(SMAP[p[1]]||p[1]);});S.pm=1;}
+if(!S.pm){const SMAP={S1:'S1',S2:'S4',S3:'S5',S4:'S3',S5:'S6',S6:'S8',S7:'S2',S8:'S7'};S.posture=S.posture.map(k=>{const p=k.split('|');return p[0]+'|'+(SMAP[p[1]]||p[1]);});S.pm=1;}
 if(!S.exm){S.logs=S.logs.map(l=>{if(l.ex==='A4')l.ex='A9';if(l.ex==='A5')l.ex='A4';if(l.ex==='A9')l.ex='A5';return l;});S.exm=1;}
 save();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){alert('保存失败：本地存储不可用，请在“数据”页导出备份')}}
@@ -220,7 +213,7 @@ function viewSession(){
  if(t==='S') return viewPosture();
  const t0=today(), wkKey=t0+'|'+t;
  const warm=S.warm[wkKey]||[];
- const warmAll=warm.length>=5;
+ const warmAll=warm.length>=3;
  const core=WO[t], opt=(t==='B')?['B7']:[];
  let done=0,total=0; core.forEach(x=>{const s=EX[x].sets;total+=s;done+=Math.min(doneSets(x),s)});
  let h=`<button class="btn" data-act="closeSession" style="text-align:center">← 结束训练（回到首页）</button>
@@ -282,7 +275,7 @@ function feelRow(dt,ex){
  const mk=(field,val)=>`<span class="chip tap ${f[field]===val?'on':''}" style="font-size:12px;padding:5px 8px;margin:2px 4px 2px 0" data-act="feel" data-v="${key}|${field}|${val}">${val}</span>`;
  return `<div style="margin:8px 0 2px"><span class="sub">发力感：</span>${mk('f','✅ 准确')}${mk('f','⚠️ 偏移')}${mk('f','❓ 找不到')}</div>
  <div style="margin:4px 0 2px"><span class="sub">累度：</span>${mk('t','😅 轻松')}${mk('t','😊 适中')}${mk('t','😓 吃力')}</div>
- <input type="text" placeholder="备注（如：左肩有点紧）" style="font-size:13px;min-height:36px;margin:4px 0" data-act="exNote" data-v="${key}" value="${f.n||''}">`;
+ <input type="text" placeholder="备注（如：左肩有点紧）" style="font-size:13px;min-height:36px;margin:4px 0" data-act="exNote" data-v="${key}" value="${(f.n||'').replace(/"/g,'&quot;')}">`;
 }
 function ladderRow(){
  const cur=S.ladder.A1||1;
@@ -294,12 +287,13 @@ function viewPosture(){
  const req=POST.filter(p=>!p.opt);
  const doneN=req.filter(p=>S.posture.includes(t+'|'+p.id)).length;
  let h=`<button class="btn" data-act="closeSession" style="text-align:center">← 结束（回到首页）</button>
- <h1>🧘 每日体态矫正</h1><div class="sub">进度 ${doneN}/${req.length} ｜ S1–S8 按体位排：先站立三项 → 一次性到垫上做完仰卧/俯卧/半跪，全程不反复起身；S7 YTW 为可选加做</div>`;
+ <h1>🧘 每日体态矫正</h1><div class="sub">进度 ${doneN}/${req.length} ｜ 按体位排：先站完 S1 门框、S2 靠墙 → 拿上小配片下到垫上，侧卧→仰卧→俯卧（可选）→半跪一路做完，全程不反复起身；S7 YTW 为可选加做</div>`;
  POST.forEach(p=>{
   const key=t+'|'+p.id, dn=S.posture.includes(key);
   h+=`<div class="card ${dn?'done-ex':''}">
    <div class="row"><b>${dn?'✅ ':''}${p.id} ${p.n}</b>${p.opt?'<span class="chip">可选</span>':''}<span style="flex:1"></span>${p.v?`<a class="vbtn" href="${p.v}" target="_blank" rel="noopener">▶ ${p.vl||'视频'}</a>`:''}${p.v2?`<a class="vbtn" href="${p.v2}" target="_blank" rel="noopener">▶ ${p.v2l||'备选'}</a>`:''}</div>
    <div class="sub" style="margin:6px 0">${p.d}</div>
+   <div style="margin:0 0 6px"><span class="chip">🫁 呼吸：${p.br}</span></div>
    <button class="setbtn ${dn?'done':''}" style="width:100%" data-act="posture" data-v="${p.id}">${dn?'已完成 ✓':'点击打卡'}</button>
   </div>`;
  });
@@ -401,7 +395,7 @@ function viewStats(){
  <h2>📋 训练日志（最近记录）</h2>
  ${logList}
  <h2>🧘 体态打卡</h2>
- <div class=”card”><div class=”big”>${pwDays} 天</div><div class=”sub”>累计体态矫正天数｜今日步数 ${S.steps[t]!==undefined?S.steps[t]+' 步':'未填'}</div></div>`;
+ <div class="card"><div class="big">${pwDays} 天</div><div class="sub">累计体态矫正天数｜今日步数 ${S.steps[t]!==undefined?S.steps[t]+' 步':'未填'}</div></div>`;
 }
 function viewSet(){
  const m=[...S.metrics].sort((a,b)=>b.d.localeCompare(a.d));
@@ -427,7 +421,7 @@ function viewSet(){
  return `<h1>⚙️ 数据与说明</h1>
  <div class="card"><div class="sub">📌 所有打卡和体测记录都永久留存在这台手机上（每次保存=新增一条，永不覆盖）。建议每周点一次"导出备份"存进微信收藏，防丢。</div></div>
  <button class="btn blue" data-act="exportData">📤 导出备份（复制全部数据）</button>
- <textarea id="expBox" placeholder="点"导出备份"后这里出现数据文字 → 全选复制 → 发到微信收藏。恢复时粘贴到这里，点"导入恢复"。"></textarea>
+ <textarea id="expBox" placeholder="点“导出备份”后这里出现数据文字 → 全选复制 → 发到微信收藏。恢复时粘贴到这里，点“导入恢复”。"></textarea>
  <button class="btn blue" data-act="importData">📥 导入恢复（粘贴备份文字后点我）</button>
  <button class="chip tap ${S.sound!==false?'on':''}" style="font-size:14px;padding:10px 14px" data-act="toggleSound">🔔 休息结束铃声：${S.sound!==false?'开':'关'}</button>
  <button class="btn" data-act="resetAll" style="color:var(--bad);text-align:center">🗑️ 清空全部数据</button>
@@ -615,7 +609,7 @@ document.addEventListener('click',e=>{
   const pos=arr.indexOf(i);
   if(pos>=0)arr.splice(pos,1);else arr.push(i);
   S.warm[k]=arr;
-  if(arr.length>=5)toast('🔥 热身完成！接下来做正式动作');
+  if(arr.length>=3)toast('🔥 热身完成！接下来做正式动作');
   save();render();
  }
  else if(act==='repAdj'){const[ex,s,dir]=v.split(':');
@@ -655,12 +649,15 @@ document.addEventListener('click',e=>{
   if(S.feel[key][field]===val)delete S.feel[key][field];else S.feel[key][field]=val;
   save();render();
  }
- else if(act==='exNote'){
-  const key=v;const input=document.querySelector('[data-act-Note="'+key+'"]');
-  if(input){if(!S.feel[key])S.feel[key]={};S.feel[key].n=input.value;save();}
- }
  else if(act==='toggleSound'){S.sound=!(S.sound!==false);save();render();}
  else if(act==='resetAll'){if(confirm('确定清空全部打卡数据？此操作不可恢复（建议先导出备份）')){S={logs:[],posture:[],sessions:[],walk:[],steps:{},ladder:{},upgDismiss:{},metrics:[],warm:{}};save();render();toast('已清空');}}
+});
+/* 备注输入：失焦即保存（render 会重建 DOM，靠 change 事件把文字存进 feel.n） */
+document.addEventListener('change',e=>{
+ const el=e.target;
+ if(el.matches&&el.matches('input[data-act="exNote"]')){
+  const key=el.dataset.v;if(!S.feel[key])S.feel[key]={};S.feel[key].n=el.value;save();
+ }
 });
 render();
 </script>
